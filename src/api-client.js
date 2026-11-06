@@ -1,17 +1,46 @@
 /* Live Sync Engine & Backend API Adapter for INKPEN Public Website <-> Admin Panel */
 (function () {
-  var API_BASE = window.INKPEN_API_BASE || 'http://localhost:4000/api';
-  var ADMIN_SYNC_URL = window.INKPEN_ADMIN_SYNC || 'http://localhost:5174/sync.html';
+  var isVercel = typeof window !== 'undefined' && window.location && window.location.hostname.endsWith('vercel.app');
+  var API_BASE = window.INKPEN_API_BASE || (typeof window !== 'undefined' && window.__INKPEN_ENV__ && window.__INKPEN_ENV__.API_BASE) || 'http://localhost:4000/api';
+  var ADMIN_SYNC_URL = window.INKPEN_ADMIN_SYNC || (isVercel ? 'https://inkpenadmin.vercel.app/sync.html' : 'http://localhost:5174/sync.html');
   var LS_STATE = 'inkpen-admin-v3';
   var LS_JOBS = 'inkpen_jobs_v1';
   var LS_SITE = 'inkpen.site.v1';
 
   var listeners = { jobs: [], site: [] };
   var currentState = null;
+  var lastAppliedHash = '';
   var activeProjCat = 'All';
   var syncIframe = null;
   var syncReady = false;
   var pendingMessages = [];
+  var bc = null;
+  try {
+    bc = new BroadcastChannel('inkpen_admin_channel');
+    bc.onmessage = function (ev) {
+      if (ev.data && (ev.data.type === 'INKPEN_SAVED' || ev.data.type === 'INKPEN_STATE') && ev.data.state) {
+        var h = JSON.stringify(ev.data.state);
+        if (h !== lastAppliedHash) {
+          lastAppliedHash = h;
+          applyAdminStateToDOM(ev.data.state);
+        }
+      }
+    };
+  } catch (e) {}
+
+  window.addEventListener('storage', function (e) {
+    if (e.key === LS_STATE && e.newValue) {
+      try {
+        var s = JSON.parse(e.newValue);
+        if (JSON.stringify(s) !== lastAppliedHash) {
+          lastAppliedHash = JSON.stringify(s);
+          applyAdminStateToDOM(s);
+        }
+      } catch (err) {}
+    } else if (e.key === 'inkpen_admin_sync_tick') {
+      pollBackendState();
+    }
+  });
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -192,9 +221,11 @@
         if (!statBoxes[i]) return;
         var numEl = statBoxes[i].querySelector('[data-c]');
         var lblEl = statBoxes[i].querySelector('p.mute');
-        if (numEl && pair[0]) {
+        if (numEl && pair[0] !== undefined && pair[0] !== '') {
           numEl.setAttribute('data-c', pair[0]);
-          numEl.textContent = pair[0] + (numEl.getAttribute('data-s') || '');
+          var suffix = numEl.getAttribute('data-s') || '';
+          var valStr = String(pair[0]);
+          numEl.textContent = (suffix && valStr.endsWith(suffix)) ? valStr : (valStr + suffix);
         }
         if (lblEl && pair[1]) lblEl.textContent = pair[1];
       });
@@ -459,27 +490,65 @@
 
   /* ---- Listen for Live Messages from Sync Bridge ---- */
   window.addEventListener('message', function (ev) {
-    if (ev.data && ev.data.type === 'INKPEN_STATE' && ev.data.state) {
-      if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', function () { applyAdminStateToDOM(ev.data.state); });
-      } else {
-        applyAdminStateToDOM(ev.data.state);
+    if (ev.data && (ev.data.type === 'INKPEN_STATE' || ev.data.type === 'INKPEN_SAVED') && ev.data.state) {
+      var s = ev.data.state;
+      var h = JSON.stringify(s);
+      if (h !== lastAppliedHash) {
+        lastAppliedHash = h;
+        if (document.readyState === 'loading') {
+          window.addEventListener('DOMContentLoaded', function () { applyAdminStateToDOM(s); });
+        } else {
+          applyAdminStateToDOM(s);
+        }
       }
     }
   });
 
+  var pollingInProgress = false;
   function pollBackendState() {
-    fetch('/api/state')
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-      .catch(function () {
-        return fetch(API_BASE + '/state').then(function (r) { return r.ok ? r.json() : Promise.reject(); });
+    if (pollingInProgress) return;
+    pollingInProgress = true;
+
+    var endpoints = [
+      '/api/state',
+      API_BASE + '/state',
+      'http://localhost:4000/api/state',
+      'http://localhost:5174/api/state'
+    ];
+
+    function tryNext(i) {
+      if (i >= endpoints.length) return Promise.reject(new Error('End of endpoints'));
+      return fetch(endpoints[i], {
+        headers: { 'Accept': 'application/json' },
+        cache: 'no-store'
       })
-      .then(function (s) {
-        if (s && typeof s === 'object') applyAdminStateToDOM(s);
+        .then(function (r) {
+          if (!r.ok) throw new Error();
+          return r.json();
+        })
+        .catch(function () {
+          return tryNext(i + 1);
+        });
+    }
+
+    return tryNext(0)
+      .then(function (remote) {
+        pollingInProgress = false;
+        if (remote && typeof remote === 'object' && remote.site) {
+          var h = JSON.stringify(remote);
+          if (h !== lastAppliedHash) {
+            lastAppliedHash = h;
+            applyAdminStateToDOM(remote);
+          }
+        }
       })
       .catch(function () {
+        pollingInProgress = false;
         var local = readLocalState();
-        if (local) applyAdminStateToDOM(local);
+        if (local && !currentState) {
+          lastAppliedHash = JSON.stringify(local);
+          applyAdminStateToDOM(local);
+        }
       });
   }
 
@@ -668,9 +737,28 @@
     }).catch(function () {});
   }
 
+  // 1. Immediately apply cached local state so page refresh has zero delay / zero flicker
+  try {
+    var cached = readLocalState();
+    if (cached && typeof cached === 'object') {
+      currentState = cached;
+      lastAppliedHash = JSON.stringify(cached);
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', function () {
+          applyAdminStateToDOM(cached);
+        });
+      } else {
+        applyAdminStateToDOM(cached);
+      }
+    }
+  } catch (e) {}
+
   window.addEventListener('DOMContentLoaded', function () {
     setupSyncBridge();
     pollBackendState();
+
+    // Continuous active polling of shared database every 2 seconds
+    setInterval(pollBackendState, 2000);
 
     // Re-sync whenever user switches back to this tab
     window.addEventListener('focus', function () {
