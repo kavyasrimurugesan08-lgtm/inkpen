@@ -53,3 +53,4 @@ module.exports = async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ error: 'Method not allowed' }));
 };
+
