@@ -7,7 +7,7 @@ window.addEventListener('hashchange',route);route();
 function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n}
 function render(){
  var f=$('jbf');f.textContent='';D.forEach(function(d){var b=el('button','btn'+(d===flt?' on':''),d);b.onclick=function(){flt=d;render()};f.appendChild(b)});
- var g=$('jbg');g.textContent='';var l=jobs.filter(function(j){return flt==='All'||j.division===flt});
+ var g=$('jbg');g.textContent='';var l=jobs.filter(function(j){return j.status!=='Closed'&&(flt==='All'||j.division===flt)});
  if(!l.length){g.appendChild(el('p','mute jb-empty','No openings right now. Please check back soon.')).style.gridColumn='1/-1'}
  l.forEach(function(j){var c=el('article','jb');var t=el('div','jb-t');[j.division,j.location,j.type].forEach(function(x){if(x)t.appendChild(el('span','',x))});
   c.appendChild(t);c.appendChild(el('h3','',j.title));c.appendChild(el('p','mute',j.description));
