@@ -1,0 +1,22 @@
+#adlock.ad-lock{max-width:460px;margin:0 auto;text-align:left}
+#adlock h2{margin:0 0 .4rem!important;text-align:left}
+#alf label{display:block;margin:1rem 0 .4rem;font-size:0.9375rem;color:var(--mute)}
+#alf input{width:100%;box-sizing:border-box}
+.pwf{position:relative}
+.pwf input{padding-right:3rem}
+.pwf .eye{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;background:none;border-radius:8px;cursor:pointer;display:grid;place-items:center;color:var(--mute);padding:0}
+.pwf .eye:hover{color:var(--g)}
+.pwf .eye svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pwf .eye .off{display:none}.pwf .eye.on .off{display:block}.pwf .eye.on .shw{display:none}
+#alf .btn{width:100%;margin-top:1.4rem;justify-content:center}
+#alerr{color:#ff5d6c;font-size:0.9375rem;margin:.9rem 0 0;min-height:1.2em}
+#alout{margin-bottom:1rem}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+#adlock.bad{animation:shake .4s}
+#adlock{padding:2rem!important;display:block!important;text-align:left!important}
+#adlock #alf{display:block;margin:1.2rem 0 0;text-align:left}
+#adlock #alf label{display:block!important;width:100%;text-align:left!important;margin:1rem 0 .4rem!important;font-size:0.9375rem}
+#adlock .pwf{display:block;width:100%;position:relative}
+#adlock .pwf input,#adlock #alu{display:block;width:100%;box-sizing:border-box}
+#adlock h2{padding:0;margin:0 0 .5rem!important}
+#adlock[hidden]{display:none!important}

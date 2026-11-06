@@ -1,0 +1,4 @@
+/* Each menu page shows only its own section; Home (no class) keeps the full landing page unchanged */
+body.pg-story #main>*:not(#story):not(:has(#story)),
+body.pg-div #main>*:not(#div):not(:has(#div)),
+body.pg-impact #main>*:not(#impact):not(:has(#impact)){display:none!important}
