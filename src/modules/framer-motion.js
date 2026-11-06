@@ -51,9 +51,9 @@ if(hero&&art&&fine&&!RM){
 var mq=$('.mq');
 if(mq){var c=mq.cloneNode(true);c.classList.add('r2');mq.parentNode.insertBefore(c,mq.nextSibling)}
 
-/* nav hides on scroll down, returns on scroll up */
-var nav=$('nav.glass'),ly=0;
-if(nav){addEventListener('scroll',function(){var y=scrollY,open=$('#links')&&$('#links').classList.contains('open');nav.classList.toggle('hide',y>ly&&y>320&&!open);nav.classList.toggle('stuck',y>40);ly=y},{passive:true})}
+/* nav stays absolute at top and never hides */
+var nav=$('nav.glass');
+if(nav){nav.classList.remove('hide')}
 
 /* divisions: horizontal progress line */
 var hs=$('#hs'),tr=$('#track');

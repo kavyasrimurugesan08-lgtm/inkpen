@@ -1,15 +1,26 @@
-/* === admin-login === */
+/* === admin-login (reads credentials from .env) === */
+const _winEnv = (typeof window !== 'undefined' && window.__INKPEN_ENV__) ? window.__INKPEN_ENV__ : {};
+const _buildEnv = (typeof __INKPEN_BUILD_ENV__ !== 'undefined' && __INKPEN_BUILD_ENV__) ? __INKPEN_BUILD_ENV__ : {};
+const _metaEnv = (typeof import.meta !== 'undefined' && import.meta.env) ? import.meta.env : {};
+
 (function(){
-var U='Jawaharkumar',P='Admin123',K='inkpen-admin-ok';
+var U = _winEnv.ADMIN_USERNAME || _buildEnv.ADMIN_USERNAME || _metaEnv.ADMIN_USERNAME || _metaEnv.VITE_ADMIN_USERNAME || 'jawaharkumar';
+var P = _winEnv.ADMIN_PASSWORD || _buildEnv.ADMIN_PASSWORD || _metaEnv.ADMIN_PASSWORD || _metaEnv.VITE_ADMIN_PASSWORD || 'admin123';
+var K = 'inkpen-admin-ok';
 var $=function(i){return document.getElementById(i)};
 var lock=$('adlock'),body=$('adbody'),f=$('alf');if(!lock||!body||!f)return;
 function open(){lock.hidden=true;body.hidden=false;var l=$('adlink');if(l)l.hidden=false}
 function shut(){body.hidden=true;lock.hidden=false;f.reset();$('alerr').textContent=''}
+function verify(){
+ if($('alu').value.trim().toLowerCase()===U.trim().toLowerCase()&&$('alp').value===P){
+  try{sessionStorage.setItem(K,'1')}catch(x){}open();$('alp').value='';
+ }else{
+  $('alerr').textContent='Incorrect username or password.';lock.classList.remove('bad');void lock.offsetWidth;lock.classList.add('bad');
+ }
+}
 try{if(sessionStorage.getItem(K)==='1')open()}catch(e){}
-f.addEventListener('submit',function(e){e.preventDefault();
- if($('alu').value.trim()===U&&$('alp').value===P){try{sessionStorage.setItem(K,'1')}catch(x){}open();$('alp').value=''}
- else{$('alerr').textContent='Incorrect username or password.';lock.classList.remove('bad');void lock.offsetWidth;lock.classList.add('bad')}});
-var sb=f.querySelector('button[type=submit]');if(sb)sb.addEventListener('click',function(e){e.preventDefault();if($('alu').value.trim()===U&&$('alp').value===P){try{sessionStorage.setItem(K,'1')}catch(x){}open();$('alp').value=''}else{$('alerr').textContent='Incorrect username or password.';lock.classList.remove('bad');void lock.offsetWidth;lock.classList.add('bad')}});
+f.addEventListener('submit',function(e){e.preventDefault();verify()});
+var sb=f.querySelector('button[type=submit]');if(sb)sb.addEventListener('click',function(e){e.preventDefault();verify()});
 var eye=$('alye');eye.addEventListener('click',function(){var s=$('alp').type==='password';$('alp').type=s?'text':'password';eye.classList.toggle('on',s);eye.setAttribute('aria-label',s?'Hide password':'Show password');eye.setAttribute('aria-pressed',s)});
 $('alout').addEventListener('click',function(){try{sessionStorage.removeItem(K)}catch(e){}shut()});
 })();
@@ -192,7 +203,6 @@ if(g&&s)g.addEventListener('click',function(){var open=s.hidden;s.hidden=!open;g
   }
   function clearOthers(){
     document.body.classList.remove('cp-on','cr-on','dv-on');
-    var L=byId('links'); if(L)L.classList.remove('open');
   }
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a[href^="#"]');
@@ -224,42 +234,9 @@ if(g&&s)g.addEventListener('click',function(){var open=s.hidden;s.hidden=!open;g
 
 /* === mobile-nav === */
 (function(){
-  var mq=window.matchMedia('(max-width:820px)');
   var nav=document.querySelector('nav.glass');
-  var hero=document.getElementById('hero');
-  var openedAt=0;
-  if(!nav||!hero)return;
-  function isMobile(){return mq.matches}
-  function setHidden(){
-    nav.classList.remove('mnav-on');
-    if(isMobile())nav.classList.add('mnav-off');else nav.classList.remove('mnav-off');
-  }
-  function open(){
-    if(!isMobile())return;
-    nav.classList.remove('mnav-off');
-    nav.classList.add('mnav-on');
-    openedAt=Date.now();
-  }
-  function close(){
-    if(!nav.classList.contains('mnav-on'))return;
-    nav.classList.remove('mnav-on');
-    if(isMobile())nav.classList.add('mnav-off');
-    var L=document.getElementById('links'); if(L)L.classList.remove('open');
-  }
-  // tapping the hero shows the menu bar
-  // tapping the hero shows the bar; tapping the hero again while it is open hides it
-  hero.addEventListener('click',function(){
-    if(nav.classList.contains('mnav-on'))close();else open();
-  });
-  // tapping anywhere else hides it again (window capture so it runs before other link handlers)
-  window.addEventListener('click',function(e){
-    if(!nav.classList.contains('mnav-on'))return;
-    if(Date.now()-openedAt<350)return;
-    if(hero.contains(e.target))return;
-    var b=document.getElementById('bur');
-    if(b&&b.contains(e.target))return;
-    close();
-  },true);
-  if(mq.addEventListener)mq.addEventListener('change',setHidden);else mq.addListener(setHidden);
-  setHidden();
+  if(!nav)return;
+  nav.classList.remove('hide','mnav-off','mnav-on');
+  var L=document.getElementById('links');
+  if(L)L.removeAttribute('hidden');
 })();

@@ -1,6 +1,6 @@
 (function(){
 function $(i){return document.getElementById(i)}
-function route(){var on=location.hash==='#contact-page';document.body.classList.toggle('cp-on',on);$('links')&&$('links').classList.remove('open');if(on)window.scrollTo(0,0);setTimeout(function(){try{window.ScrollTrigger&&ScrollTrigger.refresh()}catch(e){}},120)}
+function route(){var on=location.hash==='#contact-page';document.body.classList.toggle('cp-on',on);if(on)window.scrollTo(0,0);setTimeout(function(){try{window.ScrollTrigger&&ScrollTrigger.refresh()}catch(e){}},120)}
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="#contact-page"]');if(a){e.preventDefault();e.stopImmediatePropagation();if(location.hash==='#contact-page')route();else location.hash='contact-page'}},true);
 window.addEventListener('hashchange',route);route();
 var f=$('cpform');

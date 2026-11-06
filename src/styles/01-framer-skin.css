@@ -22,9 +22,9 @@ main section .eyebrow{text-transform:uppercase;font-size:0.9375rem;letter-spacin
 main section .eyebrow::before{content:counter(s,decimal-leading-zero) " /";color:var(--g)}
 
 /* floating nav bar */
-nav.glass{position:fixed;z-index:100;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(1200px,94%);border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);padding:.5rem .6rem .5rem 1rem;transition:transform .6s var(--ease),border-color .4s,background .4s}
+nav.glass{position:absolute;z-index:100;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(1200px,94%);border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);padding:.5rem .6rem .5rem 1rem;transition:border-color .4s,background .4s}
 nav.glass.stuck{border-color:color-mix(in srgb,var(--g) 28%,var(--line))}
-nav.glass.hide{transform:translate(-50%,-170%)}
+nav.glass.hide{transform:translateX(-50%)}
 nav .logo .lg{height:44px!important}
 .links a:not(.btn){position:relative;padding:.3rem 0}
 .links a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--g);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
