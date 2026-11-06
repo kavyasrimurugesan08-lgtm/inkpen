@@ -22,13 +22,6 @@ h2{font-size:clamp(2.2rem,6vw,5rem);font-weight:700}
 #loader{position:fixed;inset:0;z-index:300;background:var(--bg);display:grid;place-items:center;text-align:center}
 #ldlogo .lg{margin:0 auto 1rem;height:110px!important}#cnt{font:700 clamp(4rem,12vw,8rem) 'Space Grotesk';color:var(--g)}
 #stat{color:var(--mute);font:500 0.9375rem 'Space Grotesk';letter-spacing:.15em;text-transform:uppercase;min-height:1.5em}
-
-if($('#scn'))$('#scn').onclick=function(){$('#theme').click()};
-var AC=null,on=false,nodes=[];
-if($('#snd'))$('#snd').onclick=function(){var b=this;on=!on;
- if(on){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();var g=AC.createGain();g.gain.value=.04;g.connect(AC.destination);nodes=[110,164.8,220.5].map(function(f){var o=AC.createOscillator();o.type='sine';o.frequency.value=f;o.connect(g);o.start();return o});nodes.g=g;AC.resume()}catch(e){on=false}}
- else{nodes.forEach(function(o){try{o.stop()}catch(e){}});nodes=[]}
- b.textContent=(on?'🔊 Ambient Sound: On':'🔇 Ambient Sound: Off');b.setAttribute('aria-pressed',on)};
 /* nav */
 nav{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:min(1100px,94%);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.6rem .8rem .6rem 1.2rem}
 .logo{font:700 1.4rem 'Space Grotesk';letter-spacing:-.04em}.logo b{color:var(--g)}

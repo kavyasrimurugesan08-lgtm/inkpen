@@ -1,15 +1,23 @@
-/* text scale: body copy 15-20px; big type only for home headings */
-body{font-size:17px}
+/* Stylish typography & balanced display scale across all pages */
+body{font-size:17px;font-family:'Plus Jakarta Sans','Inter',system-ui,sans-serif;letter-spacing:-.005em}
+h1,h2,h3,.d,.ov b,.step .d,.card h3,.jb h3,.cp-card h2,.cp-card h3{font-family:'Outfit','Space Grotesk',system-ui,sans-serif!important;font-weight:700;letter-spacing:-.02em!important;word-spacing:.04em}
+.btn,summary,.pill,#cnt,.mq div,.logo,.tbtn,.card .n,.fl,.fl b,.links a{font-family:'Outfit','Plus Jakarta Sans',system-ui,sans-serif;font-weight:600;letter-spacing:.01em}
+.eyebrow,#stat,.note,.hint,.scue,.fstat,.tg,.ph,.st small,.cnt2{font-family:'JetBrains Mono',ui-monospace,monospace}
+#hero h1{font-weight:800;letter-spacing:-.03em!important;line-height:1.02}
+#hero h1 em,.dvh h1 em,h1 em,h2 em{font-family:'Playfair Display',Georgia,serif!important;font-style:italic!important;font-weight:700!important;letter-spacing:-.01em!important;background:linear-gradient(120deg,var(--g) 0%,#a8ffd2 50%,var(--g2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important;padding-right:.08em}
 p,li,small,label,b,strong,input,select,textarea,summary,details,.mute{font-size:max(15px,1em)}
 nav a,.links a,.navr a,footer a,.fbot span,.pill,.fl,.fl b,.scue,.hint,.eyebrow,.note,.fh,.fcraft,.fci,.tg,.cnt2,#pht,#scl,.n,.lens span,.step p,.card li,label,small,span.btn,.btn{font-size:15px!important}
 .btn,nav a.btn{font-size:16px!important}
 .fl b{font-size:18px!important}
-p,.mute,.sline,summary,details p,.card p,.step p{font-size:clamp(15px,1.2vw,20px)}
+p,.mute,.sline,summary,details p,.card p,.step p{font-size:clamp(15px,1.2vw,19px);line-height:1.65}
 p.sline{font-size:20px!important}
 summary{font-size:19px!important}
 .hint,.scue{font-size:15px!important}
 .lens span{font-size:13px!important}
-/* other pages: no big type at all */
-body.cr-on h1,body.ad-on h1,body.cp-on h1,body.dv-on h1,body.cr-on h2,body.ad-on h2,body.cp-on h2,body.dv-on h2,body.cr-on h3,body.ad-on h3,body.cp-on h3,body.dv-on h3,body.dv-on .d,body.dv-on #caps{font-size:20px!important;line-height:1.3!important}
-body.cr-on h1,body.ad-on h1,body.cp-on h1,body.dv-on h1{font-size:20px!important}
-body.dv-on em,body.dv-on span,body.dv-on b,body.dv-on strong,body.dv-on .cnt2,body.dv-on small{font-size:max(15px,1em)}
+/* Stylish display scale for Division pages, Careers, and Contact */
+body.dv-on .dvh h1,body.cr-on .cp-head h1,body.cp-on .cp-head h1{font-size:clamp(2.35rem,4.4vw,3.75rem)!important;line-height:1.08!important;font-weight:700!important;letter-spacing:-.02em!important;word-spacing:.05em!important}
+body.dv-on .dvh h1 em{font-size:1.05em!important;line-height:1.12!important;display:block;margin-top:.12rem}
+body.cr-on h2,body.cp-on h2,body.dv-on h2,body.dv-on #caps{font-size:clamp(1.6rem,2.6vw,2.3rem)!important;line-height:1.18!important;font-weight:700!important}
+body.cr-on h3,body.cp-on h3,body.dv-on h3{font-size:clamp(1.2rem,1.8vw,1.45rem)!important;line-height:1.25!important;font-weight:600!important}
+body.ad-on h1,body.ad-on h2,body.ad-on h3{font-size:20px!important;line-height:1.3!important}
+body.dv-on .st b,body.dv-on .cap b{font-family:'Outfit','Space Grotesk',sans-serif;font-weight:600;font-size:1.08rem!important;letter-spacing:-.01em}
