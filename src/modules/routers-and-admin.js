@@ -235,8 +235,85 @@ if(g&&s)g.addEventListener('click',function(){var open=s.hidden;s.hidden=!open;g
 /* === mobile-nav === */
 (function(){
   var nav=document.querySelector('nav.glass');
-  if(!nav)return;
-  nav.classList.remove('hide','mnav-off','mnav-on');
-  var L=document.getElementById('links');
-  if(L)L.removeAttribute('hidden');
+  var bur=document.getElementById('bur');
+  var links=document.getElementById('links');
+  if(!nav||!bur||!links)return;
+
+  var isOpen=false;
+  nav.classList.remove('hide','mnav-off','mnav-on','menu-open');
+  links.removeAttribute('hidden');
+
+  function targetEl(e){
+    var t=e&&e.target;
+    return t&&t.nodeType===1?t:(t&&t.parentElement)||null;
+  }
+
+  function syncActiveLink(overrideHash){
+    var h=(overrideHash||location.hash||'#top').toLowerCase();
+    if(h==='#'||h==='')h='#top';
+    var items=links.querySelectorAll('a[href]');
+    for(var i=0;i<items.length;i++){
+      var href=(items[i].getAttribute('href')||'').toLowerCase();
+      items[i].classList.toggle('active',href===h);
+    }
+  }
+
+  function setMenu(open){
+    isOpen=!!open;
+    nav.classList.toggle('menu-open',isOpen);
+    links.classList.toggle('open',isOpen);
+    bur.setAttribute('aria-expanded',isOpen?'true':'false');
+    if(isOpen)syncActiveLink();
+  }
+
+  setMenu(false);
+  syncActiveLink();
+
+  // Touch & click toggle on the menu icon (touch-action: manipulation avoids 300ms delay & double-trigger)
+  bur.addEventListener('click',function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    setMenu(!isOpen);
+  });
+
+  // Auto-close when selecting any menu item (window capture runs before document capture routers)
+  window.addEventListener('click',function(e){
+    var el=targetEl(e);
+    if(!el||!el.closest)return;
+    var link=el.closest('#links a, nav.glass .logo, nav.glass .navr a');
+    if(link){
+      if(isOpen)setMenu(false);
+      syncActiveLink(link.getAttribute('href'));
+      setTimeout(function(){syncActiveLink();},0);
+    }
+  },true);
+
+  // Close when touching or clicking outside the navbar
+  function onOutsidePress(e){
+    if(!isOpen)return;
+    var el=targetEl(e);
+    if(el&&!nav.contains(el))setMenu(false);
+  }
+  if(window.PointerEvent){
+    window.addEventListener('pointerdown',onOutsidePress,{passive:true});
+  }else{
+    window.addEventListener('touchstart',onOutsidePress,{passive:true});
+    window.addEventListener('mousedown',onOutsidePress);
+  }
+
+  // Close on Escape key & route changes
+  window.addEventListener('keydown',function(e){
+    if(isOpen&&(e.key==='Escape'||e.key==='Esc')){
+      setMenu(false);
+      bur.focus();
+    }
+  });
+  window.addEventListener('hashchange',function(){
+    if(isOpen)setMenu(false);
+    syncActiveLink();
+  });
+  window.addEventListener('popstate',function(){
+    if(isOpen)setMenu(false);
+    syncActiveLink();
+  });
 })();

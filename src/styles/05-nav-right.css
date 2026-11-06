@@ -1,6 +1,5 @@
 nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-area-inset-top,0px))!important;left:50%!important;transform:translateX(-50%)!important}
 .navr{margin-left:auto}.navr #adlink{padding:.5rem .9rem;color:var(--fg);opacity:.85;text-decoration:none}.navr #adlink:hover{opacity:1;color:var(--g)}
-.links{margin:0 auto;display:flex!important}
 @media(max-width:560px){.navr .btn{display:inline-flex!important;padding:.48rem .85rem;font-size:13.5px!important}}
 
 /* ===== hero: animated meadow scene ===== */
