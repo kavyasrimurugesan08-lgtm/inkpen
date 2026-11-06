@@ -322,8 +322,9 @@
     renderPublicReviews(Array.isArray(S.reviews) ? S.reviews : []);
     renderPublicLogos(Array.isArray(S.logos) ? S.logos : []);
 
-    // 7. Render Team Profiles in #story
-    renderPublicTeam(Array.isArray(S.team) ? S.team : []);
+    // 7. Ensure any injected team section is removed
+    var hostTeam = document.getElementById('pub-team');
+    if (hostTeam) hostTeam.remove();
   }
 
   function renderPublicServices(services) {
@@ -458,34 +459,9 @@
       '</div>';
   }
 
-  function renderPublicTeam(team) {
-    var storyWrap = document.querySelector('#story .wrap');
-    if (!storyWrap) return;
+  function removePublicTeam() {
     var host = document.getElementById('pub-team');
-    if (!team.length) {
-      if (host) host.remove();
-      return;
-    }
-    if (!host) {
-      host = document.createElement('div');
-      host.id = 'pub-team';
-      host.style.gridColumn = '1 / -1';
-      host.style.marginTop = '3rem';
-      storyWrap.appendChild(host);
-    }
-    host.innerHTML =
-      '<div style="margin-bottom:1.5rem"><span class="eyebrow">Leadership & Team</span><h2 style="margin-top:.4rem">The People Behind the Pen</h2></div>' +
-      '<div class="jb-grid">' +
-      team.map(function (t) {
-        var initials = String(t.name || 'I').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
-        return '<article class="jb" style="flex-direction:row;align-items:center;gap:1rem">' +
-          (t.url
-            ? '<img src="' + esc(t.url) + '" alt="' + esc(t.name) + '" style="width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none">'
-            : '<div style="width:56px;height:56px;border-radius:50%;background:rgba(45,255,138,.14);border:1px solid rgba(45,255,138,.35);color:var(--g);display:grid;place-items:center;font-weight:700;flex:none">' + esc(initials) + '</div>') +
-          '<div><h3 style="font-size:1.15rem;margin:0">' + esc(t.name) + '</h3><p class="mute" style="margin:.2rem 0 0">' + esc(t.role) + '</p></div>' +
-          '</article>';
-      }).join('') +
-      '</div>';
+    if (host) host.remove();
   }
 
   /* ---- Listen for Live Messages from Sync Bridge ---- */
@@ -754,6 +730,7 @@
   } catch (e) {}
 
   window.addEventListener('DOMContentLoaded', function () {
+    removePublicTeam();
     setupSyncBridge();
     pollBackendState();
 
