@@ -1,15 +1,14 @@
 /* ==========================================================================
-   INKPEN Page Router & Subpage Visibility
-   Ensure modals and standalone pages (#dv, #cpage, #crpage, #adpage)
-   are strictly hidden by default on the landing page, and only reveal
-   their respective target views without shadow effects.
+   INKPEN Page Router & Multi-Page Views
+   Ensure Home displays the full continuous landing page, while
+   dedicated navigation routes (About, Services, Careers, Projects, Contact)
+   display their respective views without shadow effects or leaked sections.
    ========================================================================== */
 
-/* Subpages & Overlays: Hidden by default */
+/* Subpages & Overlays: Hidden by default on Home landing page */
 #dv,
 #cpage,
-#crpage,
-#adpage {
+#crpage {
   display: none !important;
 }
 
@@ -20,8 +19,7 @@ body.dv-on #dv {
 }
 body.dv-on #main,
 body.dv-on #cpage,
-body.dv-on #crpage,
-body.dv-on #adpage {
+body.dv-on #crpage {
   display: none !important;
 }
 
@@ -32,8 +30,7 @@ body.cp-on #cpage {
 }
 body.cp-on #main,
 body.cp-on #dv,
-body.cp-on #crpage,
-body.cp-on #adpage {
+body.cp-on #crpage {
   display: none !important;
 }
 
@@ -44,36 +41,67 @@ body.cr-on #crpage {
 }
 body.cr-on #main,
 body.cr-on #dv,
-body.cr-on #cpage,
-body.cr-on #adpage {
+body.cr-on #cpage {
   display: none !important;
 }
 
-/* Admin Sign In & Management View (#adpage) */
-body.ad-on #adpage {
-  display: block !important;
-  padding: 0 !important;
-  text-align: left !important;
-  min-height: 100vh;
-  background: var(--bg);
-}
-body.ad-on #main,
-body.ad-on footer,
-body.ad-on nav.glass,
-body.ad-on #dv,
-body.ad-on #cpage,
-body.ad-on #crpage,
-body.ad-on #cur,
-body.ad-on #dot,
-body.ad-on .mq,
-body.ad-on #hero,
-body.ad-on #div {
+/* Standalone View: About (#story and #team) */
+body.pg-about #main > *:not(#story):not(#team):not(:has(#story)):not(:has(#team)) {
   display: none !important;
+}
+body.pg-about #story {
+  padding-top: 150px;
 }
 
-/* In-page filtered views: each menu page shows only its own section */
-body.pg-story #main>*:not(#story):not(:has(#story)),
-body.pg-div #main>*:not(#div):not(:has(#div)),
-body.pg-impact #main>*:not(#impact):not(:has(#impact)) {
+/* Standalone View: Services (#div) */
+body.pg-services #main > *:not(#div):not(:has(#div)) {
   display: none !important;
+}
+body.pg-services #div {
+  padding-top: 150px;
+}
+
+/* Standalone View: Projects (#impact) */
+body.pg-projects #main > *:not(#impact):not(:has(#impact)) {
+  display: none !important;
+}
+body.pg-projects #impact {
+  padding-top: 150px;
+}
+
+/* Breadcrumb / Return to Full Landing Pill on Subpages */
+.subpage-back-banner {
+  display: none;
+  width: min(1200px, 92%);
+  margin: 0 auto 2rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: 99px;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  box-shadow: none !important;
+}
+body.pg-about .subpage-back-banner,
+body.pg-services .subpage-back-banner,
+body.pg-projects .subpage-back-banner,
+body.cr-on .subpage-back-banner,
+body.cp-on .subpage-back-banner {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.subpage-back-banner a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--g);
+  font: 500 0.88rem 'JetBrains Mono', monospace;
+  text-decoration: none;
+}
+.subpage-back-banner a:hover {
+  text-decoration: underline;
+}
+.subpage-back-banner span {
+  color: var(--mute);
+  font-size: 0.85rem;
 }

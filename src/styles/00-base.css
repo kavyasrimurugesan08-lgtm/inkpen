@@ -796,8 +796,7 @@ footer .logo .lg { height: 65px !important; }
 /* Subpages & Overlays: Hidden by default */
 #dv,
 #cpage,
-#crpage,
-#adpage {
+#crpage {
   display: none !important;
 }
 body.dv-on #dv { display: block !important; }
