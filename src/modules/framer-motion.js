@@ -449,6 +449,57 @@ if(big&&'IntersectionObserver' in window){
  big.classList.add('in');
 }
 
+/* Parallax floating math & tech badges (from Pinterest Reference) */
+var fBadges=$$('.hero-floating-badges .f-badge');
+if(hero&&fBadges.length&&fine&&!RM){
+ hero.addEventListener('mousemove',function(e){
+  var r=hero.getBoundingClientRect();
+  var nx=(e.clientX-r.left)/r.width-0.5;
+  var ny=(e.clientY-r.top)/r.height-0.5;
+  fBadges.forEach(function(b,idx){
+   var speed=(idx%3+1)*15;
+   var inv=(idx%2===0?1:-1);
+   b.style.setProperty('--fx',(nx*speed*inv).toFixed(1)+'px');
+   b.style.setProperty('--fy',(ny*speed).toFixed(1)+'px');
+  });
+ });
+ hero.addEventListener('mouseleave',function(){
+  fBadges.forEach(function(b){
+   b.style.setProperty('--fx','0px');
+   b.style.setProperty('--fy','0px');
+  });
+ });
+}
+
+/* Process Step Switcher (from Pinterest Reference) */
+var procBtns=$$('.proc-step-btn');
+var procSteps=$$('.steps .step');
+if(procBtns.length&&procSteps.length){
+ procBtns.forEach(function(btn){
+  btn.addEventListener('click',function(){
+   var stepIdx=btn.dataset.step;
+   procBtns.forEach(function(b){b.classList.remove('active')});
+   btn.classList.add('active');
+   procSteps.forEach(function(s,idx){
+    if(s.dataset.step===stepIdx||idx===+stepIdx){
+     s.classList.add('active-step');
+     s.style.borderColor='var(--acc-emerald)';
+     if(!RM){
+      s.animate([
+       {transform:'scale(0.97)'},
+       {transform:'scale(1.02)'},
+       {transform:'scale(1)'}
+      ],{duration:380,easing:'cubic-bezier(.16,1,.3,1)'});
+     }
+    }else{
+     s.classList.remove('active-step');
+     s.style.borderColor='';
+    }
+   });
+  });
+ });
+}
+
 /* ORIGINAL ENTRANCE 100 COUNTER & LOGO (PRESERVED 100% UNTOUCHED): progress bar follows the counter */
 var cnt=$('#cnt');
 if(cnt){
