@@ -4,17 +4,17 @@ var RM=matchMedia('(prefers-reduced-motion:reduce)').matches,fine=matchMedia('(h
 var root=document.documentElement;
 function mk(t,c,h){var n=document.createElement(t);if(c)n.className=c;if(h!=null)n.innerHTML=h;return n}
 
-/* in-view observer shared by headline + kinetic scroll reveals */
+/* in-view observer shared by headline + footer reveals */
 var io=null;
 if('IntersectionObserver' in window){
  io=new IntersectionObserver(function(es){
   es.forEach(function(e){
    if(e.isIntersecting){
-    e.target.classList.add('in','in-view');
+    e.target.classList.add('in');
     io.unobserve(e.target);
    }
   });
- },{threshold:0.15,rootMargin:'0px 0px -6% 0px'});
+ },{threshold:0.18,rootMargin:'0px 0px -6% 0px'});
 }
 
 /* word-by-word headline reveal */
@@ -48,34 +48,47 @@ if(io){
  root.classList.add('fx');
 }
 
-/* kinetic scroll-reveal on cards, process steps, stats, and content blocks (from 00:08, 00:11, 00:18) */
-if(io&&!RM){
- var revealEls=$$('.card, .step, .stats, .cp-card, .jb, .stage, details');
- revealEls.forEach(function(el,idx){
-  el.classList.add('sc-reveal');
-  var parent=el.parentElement;
-  if(parent){
-   var siblings=[].slice.call(parent.children).filter(function(c){return c.classList.contains('sc-reveal')});
-   var sIdx=siblings.indexOf(el);
-   if(sIdx>0){el.style.transitionDelay=(sIdx*70)+'ms'}
-  }
-  io.observe(el);
- });
-}
-
-/* hero: volumetric atmospheric light beam (from 00:03-00:07) */
+/* hero: volumetric atmospheric light beam (from reference video 00:03-00:07) */
 var hero=$('#hero');
 if(hero&&!$('.hero-beam',hero)){
  hero.insertBefore(mk('div','hero-beam',''),hero.firstChild);
  hero.appendChild(mk('div','scue','<i></i>Scroll'));
 }
 
-/* hero: fireflies, aurora glow and gentle mouse parallax */
+/* hero: animated circuit traces & neural pulse nodes (from reference video 00:03-00:07) */
 var art2=$('.heroart');
 if(hero&&art2&&!RM){
+ if(!$('#hero-circuit',art2)){
+  var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.id='hero-circuit';
+  svg.setAttribute('viewBox','0 0 1200 600');
+  svg.setAttribute('aria-hidden','true');
+  svg.innerHTML='<defs>' +
+   '<linearGradient id="circGrad" x1="0%" y1="0%" x2="100%" y2="100%">' +
+   '<stop offset="0%" stop-color="var(--g)" stop-opacity="0.75"/>' +
+   '<stop offset="100%" stop-color="var(--g2)" stop-opacity="0.12"/>' +
+   '</linearGradient>' +
+   '</defs>' +
+   '<g fill="none" stroke="url(#circGrad)" stroke-width="1.5" stroke-linecap="round">' +
+   '<path class="c-line l1" d="M 600 300 H 450 V 220 H 280 V 160 H 120"/>' +
+   '<path class="c-line l2" d="M 600 300 H 750 V 240 H 920 V 180 H 1080"/>' +
+   '<path class="c-line l3" d="M 600 300 V 420 H 420 V 480 H 220"/>' +
+   '<path class="c-line l4" d="M 600 300 V 400 H 780 V 470 H 980"/>' +
+   '<path class="c-line l5" d="M 450 220 V 120 H 350"/>' +
+   '<path class="c-line l6" d="M 750 240 V 140 H 850"/>' +
+   '</g>' +
+   '<g fill="var(--g)">' +
+   '<circle cx="600" cy="300" r="4.5" class="c-node"/>' +
+   '<circle cx="280" cy="160" r="3.2" class="c-node"/>' +
+   '<circle cx="920" cy="180" r="3.2" class="c-node"/>' +
+   '<circle cx="420" cy="480" r="3" class="c-node"/>' +
+   '<circle cx="780" cy="470" r="3" class="c-node"/>' +
+   '</g>';
+  art2.appendChild(svg);
+ }
  if(!$('.aur',art2))art2.appendChild(mk('div','aur',''));
  if(!$('.ffs',art2)){
-  var ff=mk('div','ffs',''),N=innerWidth<820?14:34,h='';
+  var ff=mk('div','ffs',''),N=innerWidth<820?14:32,h='';
   for(var q=0;q<N;q++){
    var sz=(2+Math.random()*3.5).toFixed(1);
    h+='<i style="--x:'+(Math.random()*100).toFixed(1)+'%;--y:'+(8+Math.random()*88).toFixed(1)+'%;--s:'+sz+'px;--dx:'+(Math.round(Math.random()*90-45))+'px;--dy:'+(Math.round(Math.random()*-110))+'px;--d:'+(6+Math.random()*8).toFixed(1)+'s;--t:'+(3+Math.random()*5).toFixed(1)+'s;--dl:-'+(Math.random()*8).toFixed(1)+'s"></i>';
@@ -123,7 +136,7 @@ if(hero&&art&&fine&&!RM){
  }
 }
 
-/* marquee: add an outlined reverse row with edge gradient masks */
+/* marquee: add an outlined reverse row with edge gradient masks (from reference video 00:08, 00:23) */
 var mq=$('.mq');
 if(mq&&!$('.mq.r2')){
  var c=mq.cloneNode(true);
@@ -135,7 +148,7 @@ if(mq&&!$('.mq.r2')){
 var nav=$('nav.glass');
 if(nav){nav.classList.remove('hide')}
 
-/* dynamic bento spotlight border shader & 3D perspective tilt (from 00:05, 00:13, 00:16, 00:32, 00:40) */
+/* dynamic bento spotlight border shader & 3D perspective tilt (from reference video 00:05, 00:13, 00:16, 00:32, 00:40) */
 if(fine&&!RM){
  function initSpotlightCards(){
   var spotCards=$$('.card, .step, .stats .glass, .cp-card, .jb, .stage');
@@ -148,8 +161,8 @@ if(fine&&!RM){
     var y=e.clientY-r.top;
     card.style.setProperty('--mx',x.toFixed(1)+'px');
     card.style.setProperty('--my',y.toFixed(1)+'px');
-    var tiltX=((x/r.width)-0.5)*7;
-    var tiltY=((y/r.height)-0.5)*-7;
+    var tiltX=((x/r.width)-0.5)*9;
+    var tiltY=((y/r.height)-0.5)*-9;
     card.style.setProperty('--tilt-x',tiltX.toFixed(2)+'deg');
     card.style.setProperty('--tilt-y',tiltY.toFixed(2)+'deg');
    });
@@ -165,19 +178,28 @@ if(fine&&!RM){
  }
 }
 
-/* tactile magnetic buttons (from 00:04, 00:32, 00:37) */
+/* tactile magnetic buttons across all interactive buttons (from reference video 00:04, 00:32, 00:37) */
 if(fine&&!RM){
- $$('.btn.mag').forEach(function(b){
-  b.addEventListener('mousemove',function(e){
-   var r=b.getBoundingClientRect();
-   var mx=((e.clientX-r.left)-r.width/2)*0.22;
-   var my=((e.clientY-r.top)-r.height/2)*0.22;
-   b.style.transform='translate('+mx.toFixed(1)+'px,'+my.toFixed(1)+'px)';
+ function initMagBtns(){
+  var btns=$$('.btn, .tbtn, .burger, .mag');
+  btns.forEach(function(b){
+   if(b.dataset.magInit)return;
+   b.dataset.magInit='1';
+   b.addEventListener('mousemove',function(e){
+    var r=b.getBoundingClientRect();
+    var mx=((e.clientX-r.left)-r.width/2)*0.26;
+    var my=((e.clientY-r.top)-r.height/2)*0.26;
+    b.style.transform='translate('+mx.toFixed(1)+'px,'+my.toFixed(1)+'px)';
+   });
+   b.addEventListener('mouseleave',function(){
+    b.style.transform='';
+   });
   });
-  b.addEventListener('mouseleave',function(){
-   b.style.transform='';
-  });
- });
+ }
+ initMagBtns();
+ if('MutationObserver' in window){
+  new MutationObserver(function(){initMagBtns()}).observe(document.body,{childList:true,subtree:true});
+ }
 }
 
 /* divisions: horizontal progress line */
@@ -197,7 +219,7 @@ if(hs&&tr){
  })();
 }
 
-/* faq: smooth open and close height physics (from 00:34-00:36) */
+/* faq: smooth open and close height physics (from reference video 00:34-00:36) */
 $$('details').forEach(function(d){
  var s=$('summary',d),p=$('p',d);
  if(!s||!p||RM)return;
@@ -223,7 +245,7 @@ $$('details').forEach(function(d){
  });
 });
 
-/* curved horizon atmospheric sunrise glow in bottom CTA / contact section (from 00:36-00:38) */
+/* curved horizon atmospheric sunrise glow in bottom CTA / contact section (from reference video 00:10, 00:36-00:38) */
 var cta=$('.cta')||$('#contact')||$('#contact-page');
 if(cta&&!$('.horizon-glow',cta)){
  cta.appendChild(mk('div','horizon-glow',''));
@@ -252,7 +274,7 @@ if(big&&'IntersectionObserver' in window){
  big.classList.add('in');
 }
 
-/* ORIGINAL ENTRANCE 100 COUNTER (PRESERVED 100% UNTOUCHED): progress bar follows the counter */
+/* ORIGINAL ENTRANCE 100 COUNTER & LOGO (PRESERVED 100% UNTOUCHED): progress bar follows the counter */
 var cnt=$('#cnt');
 if(cnt){
  var lb=mk('div','lbar','<i></i>');
