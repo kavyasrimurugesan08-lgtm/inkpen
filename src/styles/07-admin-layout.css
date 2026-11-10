@@ -15,13 +15,13 @@ body.ad-on #adpage #adlock.ad-lock{max-width:460px;margin:12vh auto 0!important;
 .ad-iconbtn:hover{border-color:var(--g);color:var(--g)}
 .ad-lbl{font:500 .68rem 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:1.1rem .7rem .35rem;white-space:nowrap}
 .ad-nav{position:relative;display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:14px;padding:.6rem .8rem;color:var(--fg);font:500 .93rem Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap;overflow:hidden;transition:background .25s,border-color .25s,color .25s,transform .3s cubic-bezier(.2,.8,.2,1)}
-.ad-nav::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .25s,box-shadow .25s}
+.ad-nav::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .25s}
 .ad-nav:hover{transform:translateX(4px);border-color:var(--line);background:color-mix(in srgb,var(--fg) 4%,transparent)}
 .ad-nav:hover::before{background:var(--g)}
-.ad-nav.on{color:#04140b;background:linear-gradient(90deg,var(--g),var(--g2));border-color:transparent;box-shadow:0 8px 24px -10px var(--g)}
-.ad-nav.on::before{background:#04140b;box-shadow:0 0 0 3px rgba(4,20,11,.2)}
+.ad-nav.on{color:#070809;background:linear-gradient(90deg,var(--g),var(--g2));border-color:transparent;box-shadow:none!important}
+.ad-nav.on::before{background:#070809;box-shadow:none!important}
 .ad-nav .ct{margin-left:auto;font:500 .72rem 'JetBrains Mono',monospace;padding:.12rem .45rem;border-radius:99px;border:1px solid var(--line);color:var(--mute)}
-.ad-nav.on .ct{border-color:rgba(4,20,11,.3);color:#04140b}
+.ad-nav.on .ct{border-color:rgba(4,20,11,.3);color:#070809}
 .ad-grp{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:.4rem;background:none;border:0;padding:.5rem .7rem;color:var(--mute);font:500 .68rem 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
 .ad-grp:hover{color:var(--g)}
 .ad-grp .chev{transition:transform .4s cubic-bezier(.2,.8,.2,1);font-size:.85rem}
@@ -56,7 +56,7 @@ body.ad-on #adpage #adlock.ad-lock{max-width:460px;margin:12vh auto 0!important;
 #pn-site .ad-field{display:block;margin:0 0 1.1rem;max-width:860px}
 #pn-site .ad-field span{display:block;font:500 .72rem 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:.45rem}
 #pn-site textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);padding:.75rem .9rem;font:inherit;font-size:16px;line-height:1.5;resize:vertical}
-#pn-site textarea:focus{outline:0;border-color:var(--g);box-shadow:0 0 0 4px color-mix(in srgb,var(--g) 18%,transparent)}
+#pn-site textarea:focus{outline:0;border-color:var(--g);box-shadow:none!important}
 #pn-site .ci{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;max-width:860px;padding:.8rem 0;border-bottom:1px solid var(--line)}
 #pn-site .ci img{width:120px;height:80px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 #pn-site .ci span{color:var(--mute);flex:1;min-width:140px}

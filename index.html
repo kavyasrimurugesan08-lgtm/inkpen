@@ -85,6 +85,196 @@
   <div class="glass tilt"><div class="d"><span data-c="2500" data-s="+">0</span></div><p class="mute">Learners</p></div>
   <div class="glass tilt"><div class="d"><span data-c="98" data-s="%">0</span></div><p class="mute">Satisfaction</p></div>
  </div>
+
+  <!-- Interactive Project Showcase Section -->
+  <div class="project-showcase" id="projectShowcase">
+   <div class="showcase-head">
+    <div>
+     <span class="eyebrow">Interactive Portfolio</span>
+     <h3 class="showcase-title">Crafted with curiosity.<br>Built without compromise.</h3>
+     <p class="mute showcase-desc">Explore flagship engineering, cinematic narratives, and transformational academy cohorts.</p>
+    </div>
+    <div class="project-filters" role="tablist" aria-label="Project Categories">
+     <button class="p-filter active" data-filter="all" type="button" role="tab" aria-selected="true">All Projects</button>
+     <button class="p-filter" data-filter="tech" type="button" role="tab" aria-selected="false">Digital Engineering</button>
+     <button class="p-filter" data-filter="media" type="button" role="tab" aria-selected="false">Cinematic Media</button>
+     <button class="p-filter" data-filter="academy" type="button" role="tab" aria-selected="false">Industry Academy</button>
+    </div>
+   </div>
+
+   <div class="project-grid" id="projectGrid">
+    <!-- Card 1: Tech -->
+    <article class="project-card glass tilt" data-category="tech">
+     <div class="project-media">
+      <svg class="project-ill" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+       <rect width="400" height="220" fill="#0b0e12"/>
+       <circle cx="200" cy="110" r="70" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="4 4"/>
+       <circle cx="200" cy="110" r="42" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+       <circle cx="200" cy="110" r="14" fill="#ffffff"/>
+       <line x1="80" y1="110" x2="320" y2="110" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+       <line x1="200" y1="30" x2="200" y2="190" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+       <polygon points="200,60 240,110 200,160 160,110" stroke="#d1d5db" stroke-width="1.2" fill="rgba(255,255,255,0.03)"/>
+       <circle cx="240" cy="110" r="4" fill="#ffffff"/>
+       <circle cx="160" cy="110" r="4" fill="#ffffff"/>
+       <circle cx="200" cy="60" r="4" fill="#ffffff"/>
+       <circle cx="200" cy="160" r="4" fill="#ffffff"/>
+       <text x="24" y="36" fill="rgba(255,255,255,0.4)" font-family="monospace" font-size="11" letter-spacing="2">01 / ARCHITECTURE</text>
+      </svg>
+      <span class="p-badge">Tech</span>
+     </div>
+     <div class="project-info">
+      <h4>Pulse Core Engine</h4>
+      <p class="mute">High-throughput real-time distributed data pipelines and reactive analytics suite built for enterprise scale.</p>
+      <div class="p-tags">
+       <span>#CloudNative</span>
+       <span>#TypeScript</span>
+       <span>#Distributed</span>
+       <span>#ZeroLatency</span>
+      </div>
+     </div>
+    </article>
+
+    <!-- Card 2: Media -->
+    <article class="project-card glass tilt" data-category="media">
+     <div class="project-media">
+      <svg class="project-ill" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+       <rect width="400" height="220" fill="#0c0d11"/>
+       <rect x="50" y="40" width="300" height="140" rx="12" stroke="rgba(255,255,255,0.2)" stroke-width="1.2"/>
+       <rect x="70" y="55" width="260" height="110" rx="8" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+       <path d="M175 90 L235 110 L175 130 Z" fill="#ffffff"/>
+       <line x1="50" y1="75" x2="350" y2="75" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+       <line x1="50" y1="145" x2="350" y2="145" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+       <circle cx="85" cy="48" r="3" fill="#ffffff"/>
+       <circle cx="100" cy="48" r="3" fill="rgba(255,255,255,0.4)"/>
+       <circle cx="115" cy="48" r="3" fill="rgba(255,255,255,0.4)"/>
+       <text x="24" y="36" fill="rgba(255,255,255,0.4)" font-family="monospace" font-size="11" letter-spacing="2">02 / CINEMATICS</text>
+      </svg>
+      <span class="p-badge">Media</span>
+     </div>
+     <div class="project-info">
+      <h4>Aethelgard Cinematic</h4>
+      <p class="mute">Art-directed 4K animated brand film combining hand-drawn linework with real-time procedural lighting.</p>
+      <div class="p-tags">
+       <span>#Cinematography</span>
+       <span>#MotionArt</span>
+       <span>#SoundDesign</span>
+       <span>#VisualStory</span>
+      </div>
+     </div>
+    </article>
+
+    <!-- Card 3: Academy -->
+    <article class="project-card glass tilt" data-category="academy">
+     <div class="project-media">
+      <svg class="project-ill" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+       <rect width="400" height="220" fill="#0e0f14"/>
+       <polygon points="100,160 160,130 160,180 100,210" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+       <polygon points="100,160 160,130 220,160 160,190" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+       <polygon points="160,130 220,100 220,150 160,180" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+       <polygon points="160,130 220,100 280,130 220,160" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+       <polygon points="220,100 280,70 280,120 220,150" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+       <polygon points="220,100 280,70 340,100 280,130" fill="rgba(255,255,255,0.28)" stroke="#ffffff" stroke-width="1.2"/>
+       <circle cx="280" cy="70" r="5" fill="#ffffff"/>
+       <text x="24" y="36" fill="rgba(255,255,255,0.4)" font-family="monospace" font-size="11" letter-spacing="2">03 / EDUCATION</text>
+      </svg>
+      <span class="p-badge">Academy</span>
+     </div>
+     <div class="project-info">
+      <h4>Curiosity Guild Cohort</h4>
+      <p class="mute">Cohort-based accelerator curriculum transforming aspiring developers into production-ready software engineers.</p>
+      <div class="p-tags">
+       <span>#Curriculum</span>
+       <span>#Mentorship</span>
+       <span>#SystemDesign</span>
+       <span>#CareerLab</span>
+      </div>
+     </div>
+    </article>
+
+    <!-- Card 4: Tech -->
+    <article class="project-card glass tilt" data-category="tech">
+     <div class="project-media">
+      <svg class="project-ill" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+       <rect width="400" height="220" fill="#0b0e12"/>
+       <circle cx="200" cy="110" r="64" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/>
+       <circle cx="200" cy="110" r="48" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3 5"/>
+       <rect x="175" y="85" width="50" height="50" transform="rotate(45 200 110)" stroke="#ffffff" stroke-width="1.5" fill="rgba(255,255,255,0.04)"/>
+       <line x1="120" y1="110" x2="160" y2="110" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+       <line x1="240" y1="110" x2="280" y2="110" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+       <line x1="200" y1="30" x2="200" y2="70" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+       <line x1="200" y1="150" x2="200" y2="190" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+       <text x="24" y="36" fill="rgba(255,255,255,0.4)" font-family="monospace" font-size="11" letter-spacing="2">04 / PROTOCOL</text>
+      </svg>
+      <span class="p-badge">Tech</span>
+     </div>
+     <div class="project-info">
+      <h4>Vortex Web3 OS</h4>
+      <p class="mute">Next-generation cryptographic wallet interface and decentralized liquidity management platform.</p>
+      <div class="p-tags">
+       <span>#SmartContracts</span>
+       <span>#WebGL</span>
+       <span>#ZeroKnowledge</span>
+       <span>#FinTech</span>
+      </div>
+     </div>
+    </article>
+
+    <!-- Card 5: Media -->
+    <article class="project-card glass tilt" data-category="media">
+     <div class="project-media">
+      <svg class="project-ill" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+       <rect width="400" height="220" fill="#0d0e13"/>
+       <path d="M50 110 Q 100 60, 150 110 T 250 110 T 350 110" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+       <path d="M50 110 Q 100 40, 150 110 T 250 110 T 350 110" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+       <path d="M50 110 Q 100 80, 150 110 T 250 110 T 350 110" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" fill="none"/>
+       <circle cx="150" cy="110" r="4" fill="#ffffff"/>
+       <circle cx="250" cy="110" r="4" fill="#ffffff"/>
+       <text x="24" y="36" fill="rgba(255,255,255,0.4)" font-family="monospace" font-size="11" letter-spacing="2">05 / SOUND & VISION</text>
+      </svg>
+      <span class="p-badge">Media</span>
+     </div>
+     <div class="project-info">
+      <h4>Nocturne Soundscape</h4>
+      <p class="mute">Spatial sound architecture and documentary series exploring global design innovators.</p>
+      <div class="p-tags">
+       <span>#Docuseries</span>
+       <span>#SoundDesign</span>
+       <span>#Editorial</span>
+       <span>#ArtDirection</span>
+      </div>
+     </div>
+    </article>
+
+    <!-- Card 6: Academy -->
+    <article class="project-card glass tilt" data-category="academy">
+     <div class="project-media">
+      <svg class="project-ill" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+       <rect width="400" height="220" fill="#0e0f14"/>
+       <line x1="80" y1="40" x2="80" y2="180" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+       <line x1="160" y1="40" x2="160" y2="180" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+       <line x1="240" y1="40" x2="240" y2="180" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+       <line x1="320" y1="40" x2="320" y2="180" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+       <polygon points="200,60 260,95 200,130 140,95" fill="rgba(255,255,255,0.15)" stroke="#ffffff" stroke-width="1.2"/>
+       <polygon points="140,95 200,130 200,180 140,145" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+       <polygon points="200,130 260,95 260,145 200,180" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+       <text x="24" y="36" fill="rgba(255,255,255,0.4)" font-family="monospace" font-size="11" letter-spacing="2">06 / MASTERCLASS</text>
+      </svg>
+      <span class="p-badge">Academy</span>
+     </div>
+     <div class="project-info">
+      <h4>NextGen System Design</h4>
+      <p class="mute">Interactive hands-on sandbox labs for mastering large-scale system design and generative UI engineering.</p>
+      <div class="p-tags">
+       <span>#InteractiveLabs</span>
+       <span>#Architecture</span>
+       <span>#PeerReview</span>
+       <span>#CodeReview</span>
+      </div>
+     </div>
+    </article>
+   </div>
+  </div>
+
 </div></section>
 
 <section id="process"><div class="wrap">
