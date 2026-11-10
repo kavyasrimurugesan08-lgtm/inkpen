@@ -1,3 +1,4 @@
+#adpage{display:none!important}
 body.ad-on #main,body.ad-on footer,body.ad-on nav.glass,body.ad-on #dv,body.ad-on #cpage,body.ad-on #crpage,body.ad-on #cur,body.ad-on #dot,body.ad-on .mq,body.ad-on #hero,body.ad-on #div{display:none!important}
 body.ad-on #adpage{display:block!important;padding:0!important;text-align:left!important;min-height:100vh;background:var(--bg)}
 body.ad-on #adpage #adlock.ad-lock{max-width:460px;margin:12vh auto 0!important;padding:2rem!important;text-align:left!important}

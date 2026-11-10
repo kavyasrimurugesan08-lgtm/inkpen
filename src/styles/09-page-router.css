@@ -1,4 +1,79 @@
-/* Each menu page shows only its own section; Home (no class) keeps the full landing page unchanged */
+/* ==========================================================================
+   INKPEN Page Router & Subpage Visibility
+   Ensure modals and standalone pages (#dv, #cpage, #crpage, #adpage)
+   are strictly hidden by default on the landing page, and only reveal
+   their respective target views without shadow effects.
+   ========================================================================== */
+
+/* Subpages & Overlays: Hidden by default */
+#dv,
+#cpage,
+#crpage,
+#adpage {
+  display: none !important;
+}
+
+/* Division Modal View (#dv) */
+body.dv-on #dv {
+  display: block !important;
+  padding: 130px 0 90px;
+}
+body.dv-on #main,
+body.dv-on #cpage,
+body.dv-on #crpage,
+body.dv-on #adpage {
+  display: none !important;
+}
+
+/* Contact Page View (#cpage) */
+body.cp-on #cpage {
+  display: block !important;
+  padding: 130px 0 90px;
+}
+body.cp-on #main,
+body.cp-on #dv,
+body.cp-on #crpage,
+body.cp-on #adpage {
+  display: none !important;
+}
+
+/* Careers Page View (#crpage) */
+body.cr-on #crpage {
+  display: block !important;
+  padding: 130px 0 90px;
+}
+body.cr-on #main,
+body.cr-on #dv,
+body.cr-on #cpage,
+body.cr-on #adpage {
+  display: none !important;
+}
+
+/* Admin Sign In & Management View (#adpage) */
+body.ad-on #adpage {
+  display: block !important;
+  padding: 0 !important;
+  text-align: left !important;
+  min-height: 100vh;
+  background: var(--bg);
+}
+body.ad-on #main,
+body.ad-on footer,
+body.ad-on nav.glass,
+body.ad-on #dv,
+body.ad-on #cpage,
+body.ad-on #crpage,
+body.ad-on #cur,
+body.ad-on #dot,
+body.ad-on .mq,
+body.ad-on #hero,
+body.ad-on #div {
+  display: none !important;
+}
+
+/* In-page filtered views: each menu page shows only its own section */
 body.pg-story #main>*:not(#story):not(:has(#story)),
 body.pg-div #main>*:not(#div):not(:has(#div)),
-body.pg-impact #main>*:not(#impact):not(:has(#impact)){display:none!important}
+body.pg-impact #main>*:not(#impact):not(:has(#impact)) {
+  display: none !important;
+}
