@@ -3,7 +3,7 @@ var $=function(s,c){return(c||document).querySelector(s)},$$=function(s,c){retur
 var root=document.documentElement,RM=matchMedia('(prefers-reduced-motion:reduce)').matches,fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
 /* theme */
 var t=null;try{t=localStorage.getItem('inkpen-theme')}catch(e){}
-if(!t)t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';
+if(!t)t='dark';
 function setT(v){root.setAttribute('data-theme',v);var m=$('meta[name=theme-color]');if(m)m.content=v==='dark'?'#0b0d0c':'#fbfcfb';var sl=$('#scl');if(sl)sl.textContent=v==='dark'?'Night':'Day';try{localStorage.setItem('inkpen-theme',v)}catch(e){}}
 setT(t);$('#theme').onclick=function(){setT(root.getAttribute('data-theme')==='dark'?'light':'dark')};
 /* nav */
@@ -129,7 +129,26 @@ function boot(){
  gsap.from('.cta',{scale:.92,opacity:0,scrollTrigger:{trigger:'.cta',start:'top 85%',end:'top 40%',scrub:true}});
  $$('[data-c]').forEach(function(n){var o={v:0},s=n.dataset.s||'',c=+n.dataset.c;gsap.to(o,{v:c,duration:2,ease:'power2.out',scrollTrigger:{trigger:n,start:'top 92%',once:true},onUpdate:function(){n.textContent=Math.round(o.v).toLocaleString()+s}})});
  var mm=gsap.matchMedia();
- mm.add('(min-width:821px)',function(){var tr=$('#track');gsap.to(tr,{x:function(){return-(tr.scrollWidth-innerWidth)},ease:'none',scrollTrigger:{trigger:'#hs',pin:true,scrub:.6,start:'top top',end:function(){return'+='+(tr.scrollWidth-innerWidth)},invalidateOnRefresh:true}})});
+ mm.add('(min-width:821px)',function(){
+  var tr=$('#track'), intro=$('#hs .intro');
+  var getDist=function(){
+   var introW = intro ? intro.offsetWidth : 0;
+   var availW = innerWidth - introW;
+   return Math.max(0, tr.scrollWidth - availW + 100);
+  };
+  gsap.to(tr,{
+   x:function(){return -getDist()},
+   ease:'none',
+   scrollTrigger:{
+    trigger:'#hs',
+    pin:true,
+    scrub:.6,
+    start:'top top',
+    end:function(){return '+=' + getDist()},
+    invalidateOnRefresh:true
+   }
+  });
+ });
  mm.add('(max-width:820px)',function(){$$('.card').forEach(function(c){gsap.from(c,{opacity:0,y:60,scrollTrigger:{trigger:c,start:'top 90%'}})})});
 }
 /* loader */

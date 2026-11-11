@@ -385,7 +385,7 @@ if(fine&&!RM){
 }
 
 /* divisions: horizontal progress line */
-var hs=$('#hs'),tr=$('#track');
+var hs=$('#hs'),tr=$('#track'),intro=$('#hs .intro');
 if(hs&&tr){
  var hp=mk('div','hprog','<i></i>'),bar=hp.firstChild;
  hs.appendChild(hp);
@@ -393,7 +393,9 @@ if(hs&&tr){
   if(innerWidth>820){
    var m=getComputedStyle(tr).transform;
    if(m&&m!=='none'){
-    var p=m.split(','),tx=+(m.indexOf('matrix3d')===0?p[12]:p[4]),max=tr.scrollWidth-innerWidth;
+    var p=m.split(','),tx=+(m.indexOf('matrix3d')===0?p[12]:p[4]);
+    var introW = intro ? intro.offsetWidth : 0;
+    var max = Math.max(1, tr.scrollWidth - (innerWidth - introW) + 100);
     bar.style.transform='scaleX('+Math.max(0,Math.min(1,max>0?-tx/max:0))+')';
    }
   }
@@ -475,11 +477,10 @@ if(big&&'IntersectionObserver' in window){
   es.forEach(function(e){
    if(e.isIntersecting){
     e.target.classList.add('in');
-   } else {
-    e.target.classList.remove('in');
+    bigIO.unobserve(e.target);
    }
   });
- },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+ },{threshold:0.12,rootMargin:'0px 0px -20px 0px'});
  bigIO.observe(big);
 }else if(big){
  big.classList.add('in');

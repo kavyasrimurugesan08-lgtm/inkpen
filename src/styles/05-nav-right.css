@@ -303,10 +303,12 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
-    padding: calc(56px + env(safe-area-inset-top, 0px)) 1rem calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+    padding: calc(54px + env(safe-area-inset-top, 0px)) 1rem calc(10px + env(safe-area-inset-bottom, 0px)) !important;
     overflow: hidden !important;
     position: relative !important;
     box-sizing: border-box !important;
+    background: #080a0d !important;
+    color: #f8fafc !important;
   }
   #hero #top.wrap {
     position: relative !important;
@@ -323,24 +325,28 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
   }
   #hero .pill {
     font-size: clamp(0.68rem, 2.2vw, 0.75rem) !important;
-    padding: 0.22rem 0.65rem !important;
-    margin: 0 auto 0.35rem !important;
+    padding: 0.2rem 0.65rem !important;
+    margin: 0 auto 0.25rem !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 0.35rem !important;
     border-radius: 999px !important;
     white-space: nowrap !important;
     letter-spacing: -0.01em !important;
+    color: #a3e635 !important;
+    background: rgba(163, 230, 53, 0.08) !important;
+    border: 1px solid rgba(163, 230, 53, 0.24) !important;
   }
   #hero h1 {
-    font-size: clamp(1.65rem, 6.2vw, 2.15rem) !important;
+    font-size: clamp(1.6rem, 5.8vw, 2.1rem) !important;
     line-height: 1.08 !important;
     font-weight: 800 !important;
     letter-spacing: -0.035em !important;
-    margin: 0.2rem auto 0.4rem !important;
+    margin: 0.15rem auto 0.35rem !important;
     text-align: center !important;
     width: 100% !important;
     max-width: 360px !important;
+    color: #ffffff !important;
   }
   #hero h1 .ln {
     display: block !important;
@@ -350,14 +356,15 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
     font-weight: 400 !important;
     letter-spacing: -0.01em !important;
+    color: #a3e635 !important;
   }
   #hero .hero-feature-row {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 0.3rem 0.65rem !important;
+    gap: 0.25rem 0.6rem !important;
     width: 100% !important;
     max-width: 330px !important;
-    margin: 0.25rem auto 0.45rem !important;
+    margin: 0.2rem auto 0.4rem !important;
     padding: 0 !important;
     justify-content: center !important;
   }
@@ -368,10 +375,10 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     gap: 0.3rem !important;
     font-size: clamp(0.68rem, 2.2vw, 0.74rem) !important;
     line-height: 1.2 !important;
-    padding: 0.18rem 0.35rem !important;
+    padding: 0.15rem 0.3rem !important;
     white-space: nowrap !important;
     font-weight: 500 !important;
-    color: var(--mute) !important;
+    color: rgba(248, 250, 252, 0.9) !important;
   }
   #hero .hero-feature-row span i {
     font-style: normal !important;
@@ -382,12 +389,13 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
   #hero p.mute {
     max-width: 320px !important;
     width: 100% !important;
-    font-size: clamp(0.76rem, 2.4vw, 0.84rem) !important;
-    line-height: 1.38 !important;
-    margin: 0.25rem auto 0.55rem !important;
+    font-size: clamp(0.74rem, 2.3vw, 0.82rem) !important;
+    line-height: 1.35 !important;
+    margin: 0.2rem auto 0.45rem !important;
     text-align: center !important;
     font-weight: 400 !important;
-    color: var(--mute) !important;
+    color: rgba(248, 250, 252, 0.82) !important;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6) !important;
   }
   #hero .hero-row.hero-buttons-row {
     display: flex !important;
@@ -397,7 +405,7 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     gap: 0.5rem !important;
     width: 100% !important;
     max-width: 340px !important;
-    margin: 0.1rem auto 0 !important;
+    margin: 0.15rem auto 0 !important;
     z-index: 6 !important;
   }
   #hero .hero-row.hero-buttons-row .btn {
@@ -409,6 +417,18 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     font-weight: 600 !important;
     letter-spacing: -0.01em !important;
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease, opacity 0.2s ease !important;
+  }
+  #hero .hero-row.hero-buttons-row .btn.p {
+    background: #a3e635 !important;
+    color: #080a0c !important;
+    border: none !important;
+    box-shadow: 0 4px 16px rgba(163, 230, 53, 0.35) !important;
+  }
+  #hero .hero-row.hero-buttons-row .btn.ghost {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(12px) !important;
   }
   #hero .hero-row.hero-buttons-row .btn:active {
     transform: scale(0.96) !important;
@@ -423,6 +443,7 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     height: 100% !important;
     overflow: hidden !important;
     z-index: 1 !important;
+    background: #080a0d !important;
   }
   .heroart::before {
     content: "" !important;
@@ -430,12 +451,12 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     position: absolute !important;
     inset: auto 0 0 0 !important;
     width: 100% !important;
-    height: clamp(310px, 50svh, 440px) !important;
-    background: var(--hero) 76% bottom / auto 96% no-repeat !important;
+    height: clamp(310px, 48svh, 420px) !important;
+    background: var(--hero) 82% bottom / auto 96% no-repeat !important;
     opacity: 1 !important;
     -webkit-mask: none !important;
     mask: none !important;
-    transform-origin: 75% 70% !important;
+    transform-origin: 80% 70% !important;
     animation: kb 24s ease-in-out infinite alternate !important;
     z-index: 2 !important;
     will-change: transform !important;
@@ -447,14 +468,14 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     z-index: 3 !important;
     pointer-events: none !important;
     background: linear-gradient(180deg, 
-      #070809 0%, 
-      #070809 38%, 
-      rgba(7, 8, 9, 0.85) 47%, 
-      rgba(7, 8, 9, 0.35) 58%, 
-      transparent 72%),
+      #080a0d 0%, 
+      #080a0d 24%, 
+      rgba(8, 10, 13, 0.85) 38%, 
+      rgba(8, 10, 13, 0.25) 54%, 
+      transparent 68%),
       linear-gradient(0deg, 
-      rgba(7, 8, 9, 0.7) 0%, 
-      transparent 14%) !important;
+      rgba(8, 10, 13, 0.75) 0%, 
+      transparent 12%) !important;
   }
   #hero .hero-bottom-bar {
     position: relative !important;
@@ -479,8 +500,8 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     font-weight: 600 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.08em !important;
-    opacity: 0.82 !important;
-    color: var(--mute) !important;
+    opacity: 0.85 !important;
+    color: rgba(248, 250, 252, 0.72) !important;
   }
   #hero .hero-bottom-bar .social-pills {
     display: flex !important;
@@ -488,31 +509,30 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
     gap: 0.3rem !important;
   }
   #hero .hero-bottom-bar .social-pills a {
-    width: 24px !important;
-    height: 24px !important;
-    min-width: 24px !important;
-    border-radius: 50% !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    font-size: 0.64rem !important;
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #f8fafc !important;
+    font-size: 0.68rem !important;
     text-decoration: none !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
-    color: #ffffff !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
     transition: transform 0.2s ease, opacity 0.2s ease !important;
   }
   #hero .hero-bottom-bar .social-pills a:active {
-    transform: scale(0.9) !important;
+    transform: scale(0.92) !important;
   }
   #hero .hero-bottom-bar .hero-scroll-explore {
-    font-size: 0.66rem !important;
-    letter-spacing: 0.06em !important;
-    text-transform: uppercase !important;
+    font-size: 0.68rem !important;
     font-weight: 500 !important;
-    opacity: 0.85 !important;
-    white-space: nowrap !important;
-    color: var(--mute) !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    color: rgba(248, 250, 252, 0.75) !important;
   }
 }
 
@@ -543,86 +563,81 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
   clear: both !important;
 }
 
-/* ===== light theme: white hero, black text, white nav ===== */
+/* ===== light theme: keep hero as unified dark cinematic canvas ===== */
 :root[data-theme=light] #hero {
-  --bg: #f7f8f7;
-  --bg2: #ffffff;
-  --fg: #0d1210;
-  --mute: #3f4d46;
-  --line: rgba(0, 0, 0, .12);
-  --glass: rgba(255, 255, 255, .75);
-  --g: #0a0b0d;
-  --g2: #334155;
-  color: #0d1210;
-  background: #f7f8f7 !important;
+  color: #f8fafc !important;
+  background: #080a0d !important;
 }
-:root[data-theme=light] #hero h1 { color: #0d1210 !important; }
+:root[data-theme=light] #hero h1 { color: #ffffff !important; }
 :root[data-theme=light] #hero h1 em {
-  background: linear-gradient(120deg, #0a0b0d, #334155, #0a0b0d) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
+  color: #a3e635 !important;
+  -webkit-text-fill-color: #a3e635 !important;
 }
 :root[data-theme=light] #hero .pill {
-  background: rgba(255, 255, 255, .9) !important;
-  color: #0d1210 !important;
-  border-color: rgba(0, 0, 0, 0.18) !important;
+  background: rgba(163, 230, 53, 0.08) !important;
+  color: #a3e635 !important;
+  border-color: rgba(163, 230, 53, 0.24) !important;
+}
+:root[data-theme=light] #hero .hero-feature-row span {
+  color: rgba(248, 250, 252, 0.9) !important;
+}
+:root[data-theme=light] #hero p.mute {
+  color: rgba(248, 250, 252, 0.82) !important;
 }
 :root[data-theme=light] #hero .btn:not(.p) {
-  color: #0d1210 !important;
-  background: rgba(255, 255, 255, .85) !important;
-  border-color: rgba(0, 0, 0, .15) !important;
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
 }
 :root[data-theme=light] #hero .heroart {
-  background: #f7f8f7 !important;
+  background: #080a0d !important;
 }
 :root[data-theme=light] #hero .heroart::before {
-  opacity: 0.95 !important;
+  opacity: 1 !important;
   filter: saturate(1.05) contrast(1.04) !important;
   -webkit-mask: none !important;
   mask: none !important;
 }
 :root[data-theme=light] #hero .heroart::after {
-  background: linear-gradient(90deg, #f7f8f7 0%, #f7f8f7 40%, rgba(247, 248, 247, .72) 55%, rgba(247, 248, 247, 0) 74%),
-              linear-gradient(0deg, #f7f8f7 0%, rgba(247, 248, 247, 0) 14%) !important;
+  background: linear-gradient(90deg, #080a0d 0%, #080a0d 40%, rgba(8, 10, 13, 0.72) 55%, rgba(8, 10, 13, 0) 74%),
+              linear-gradient(0deg, #080a0d 0%, rgba(8, 10, 13, 0) 14%) !important;
 }
 :root[data-theme=light] nav.glass {
-  background: #ffffff !important;
-  border-color: rgba(0, 0, 0, .12) !important;
+  background: rgba(18, 22, 28, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
   box-shadow: none !important;
 }
-:root[data-theme=light] nav.glass .links a { color: #0d1210; }
-:root[data-theme=light] nav.glass .links a:hover { color: #0a0b0d; }
+:root[data-theme=light] nav.glass .links a { color: #f8fafc; }
+:root[data-theme=light] nav.glass .links a:hover { color: #a3e635; }
 :root[data-theme=light] nav.glass .logo,
 :root[data-theme=light] nav.glass a,
-:root[data-theme=light] nav.glass button { color: #0d1210; }
+:root[data-theme=light] nav.glass button { color: #f8fafc; }
 @media(max-width: 768px) {
   :root[data-theme=light] #hero .heroart::after {
     background: linear-gradient(180deg, 
-      #f7f8f7 0%, 
-      #f7f8f7 38%, 
-      rgba(247, 248, 247, 0.88) 47%, 
-      rgba(247, 248, 247, 0.35) 58%, 
-      transparent 72%),
+      #080a0d 0%, 
+      #080a0d 24%, 
+      rgba(8, 10, 13, 0.85) 38%, 
+      rgba(8, 10, 13, 0.25) 54%, 
+      transparent 68%),
       linear-gradient(0deg, 
-      rgba(247, 248, 247, 0.6) 0%, 
+      rgba(8, 10, 13, 0.75) 0%, 
       transparent 12%) !important;
   }
   :root[data-theme=light] #hero .hero-feature-row span {
-    color: #2f3d36 !important;
+    color: rgba(248, 250, 252, 0.9) !important;
   }
   :root[data-theme=light] #hero p.mute {
-    color: #2f3d36 !important;
+    color: rgba(248, 250, 252, 0.82) !important;
   }
   :root[data-theme=light] #hero .hero-bottom-bar .social-lbl,
   :root[data-theme=light] #hero .hero-bottom-bar .hero-scroll-explore {
-    color: #3f4d46 !important;
+    color: rgba(248, 250, 252, 0.75) !important;
   }
   :root[data-theme=light] #hero .hero-bottom-bar .social-pills a {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border: 1px solid rgba(0, 0, 0, 0.14) !important;
-    color: #0d1210 !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #f8fafc !important;
   }
 }
 @media(min-width: 821px) and (max-width: 1200px) {
@@ -632,7 +647,7 @@ nav.glass,nav.glass.hide{position:absolute!important;top:calc(14px + env(safe-ar
 }
 
 /* ==========================================================================
-   Footer Giant Mechanical Split-Flap Brand Cards (Exact Metrio Replicate)
+   Footer Cinematic Sequential Letter Reveal Animation (INKPEN Wordmark)
    ========================================================================== */
 footer .big.mt-giant-cards-container {
   display: block !important;
@@ -652,27 +667,33 @@ footer .big.mt-giant-cards-container {
   width: 100% !important;
 }
 
+/* Individual letter cards with dark glassmorphism styling */
 .mt-giant-card {
   position: relative !important;
-  height: clamp(90px, 15vw, 190px) !important;
-  border-radius: clamp(8px, 1.6vw, 18px) !important;
+  height: clamp(95px, 15vw, 195px) !important;
+  border-radius: clamp(10px, 1.8vw, 20px) !important;
   overflow: hidden !important;
   cursor: pointer !important;
   transform-style: preserve-3d !important;
   user-select: none !important;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+
+  /* INITIAL STATE: All six letter cards are completely invisible */
+  opacity: 0 !important;
+  transform: translateY(60px) scale(0.85) !important;
+  pointer-events: none !important;
+
+  /* Dark glassmorphism card design */
+  background: rgba(18, 22, 28, 0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  
-  /* Idle Base State: Sleek dark mechanical slate/carbon */
-  background: #14171d !important;
-  color: #38414e !important;
-  transform: translateY(0) scale(1) !important;
-  filter: brightness(0.9) !important;
-  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+
+  will-change: transform, opacity, box-shadow, border-color !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.35s ease,
-              background 0.5s ease,
-              color 0.4s ease,
-              filter 0.4s ease !important;
+              border-color 0.35s ease !important;
 }
 
 /* Split-Flap halves */
@@ -703,23 +724,24 @@ footer .big.mt-giant-cards-container {
   right: 0 !important;
   height: 2px !important;
   background: rgba(0, 0, 0, 0.45) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   z-index: 5 !important;
   pointer-events: none !important;
   transform: translateY(-50%) !important;
 }
 
+/* Bold, oversized, elegant typography with subtle dark shadow */
 .mt-giant-card-half span {
   display: block !important;
   font-family: 'Space Grotesk', 'Inter Tight', Inter, system-ui, sans-serif !important;
-  font-weight: 900 !important;
+  font-weight: 800 !important;
   font-size: clamp(4.2rem, 13vw, 10.5rem) !important;
-  line-height: clamp(90px, 15vw, 190px) !important;
-  color: inherit !important;
+  line-height: clamp(95px, 15vw, 195px) !important;
+  color: #f8fafc !important;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.65) !important;
   text-transform: uppercase !important;
   letter-spacing: -0.02em !important;
   pointer-events: none !important;
-  text-shadow: none !important;
 }
 
 .mt-giant-top span {
@@ -731,72 +753,43 @@ footer .big.mt-giant-cards-container {
 }
 
 /* ==========================================================================
-   Sequential Illumination on Scroll (Left-to-Right Reveal)
+   Sequential Cinematic Letter Reveal on Viewport Enter
+   Order: I (0ms) -> N (300ms) -> K (600ms) -> P (900ms) -> E (1200ms) -> N (1500ms)
    ========================================================================== */
-footer .big.in .mt-giant-card.is-green-card {
-  animation: cardIlluminateGreen 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards calc(var(--i) * 0.10s) !important;
+footer .big.in .mt-giant-card {
+  pointer-events: auto !important;
+  animation: cinematicLetterReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  animation-delay: calc(var(--i) * 300ms) !important;
 }
 
-footer .big.in .mt-giant-card.is-white-card {
-  animation: cardIlluminateWhite 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards calc(var(--i) * 0.10s) !important;
-}
-
-@keyframes cardIlluminateGreen {
+@keyframes cinematicLetterReveal {
   0% {
-    background: #14171d;
-    color: #38414e;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
-    transform: translateY(0) scale(0.98);
+    opacity: 0;
+    transform: translateY(60px) scale(0.85);
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
-  45% {
-    background: #aaff26;
-    color: #080a0c;
-    box-shadow: 0 24px 50px rgba(170, 255, 38, 0.65), 0 0 40px rgba(138, 201, 13, 0.6);
-    transform: translateY(-8px) scale(1.045);
-    filter: brightness(1.2);
+  60% {
+    opacity: 1;
+    border-color: rgba(163, 230, 53, 0.7);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 32px rgba(163, 230, 53, 0.45);
+    transform: translateY(-4px) scale(1.02);
   }
   100% {
-    background: #8ac90d;
-    color: #0a0d10;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(138, 201, 13, 0.45);
+    opacity: 1;
     transform: translateY(0) scale(1);
-    filter: brightness(1);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 18px rgba(163, 230, 53, 0.15);
   }
 }
 
-@keyframes cardIlluminateWhite {
-  0% {
-    background: #14171d;
-    color: #38414e;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
-    transform: translateY(0) scale(0.98);
-  }
-  45% {
-    background: #ffffff;
-    color: #080a0c;
-    box-shadow: 0 24px 50px rgba(255, 255, 255, 0.8), 0 0 45px rgba(255, 255, 255, 0.5);
-    transform: translateY(-8px) scale(1.045);
-    filter: brightness(1.2);
-  }
-  100% {
-    background: #ffffff;
-    color: #0a0d10;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(255, 255, 255, 0.35);
-    transform: translateY(0) scale(1);
-    filter: brightness(1);
-  }
-}
-
-/* Hover State */
+/* Hover State: Subtle green border & gentle lift effect */
 .mt-giant-card:hover,
 .mt-giant-card.hot {
   z-index: 10 !important;
-  box-shadow: 0 26px 55px rgba(0, 0, 0, 0.7), 0 0 35px rgba(170, 255, 38, 0.5) !important;
-}
-
-.mt-giant-card.is-white-card:hover,
-.mt-giant-card.is-white-card.hot {
-  box-shadow: 0 26px 55px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(163, 230, 53, 0.65) !important;
+  transform: translateY(-8px) scale(1.03) !important;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.65), 0 0 30px rgba(163, 230, 53, 0.3) !important;
 }
 
 @media (max-width: 600px) {
@@ -819,17 +812,12 @@ footer .big.in .mt-giant-card.is-white-card {
 
 @media (prefers-reduced-motion: reduce) {
   .mt-giant-card {
+    opacity: 1 !important;
     transform: none !important;
     animation: none !important;
     transition: none !important;
-  }
-  .mt-giant-card.is-green-card {
-    background: #8ac90d !important;
-    color: #0a0d10 !important;
-  }
-  .mt-giant-card.is-white-card {
-    background: #ffffff !important;
-    color: #0a0d10 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
   }
 }
 
@@ -841,14 +829,35 @@ footer .big.in .mt-giant-card.is-white-card {
   display: flex !important;
   align-items: center !important;
   overflow: hidden !important;
+  position: relative !important;
+}
+
+.intro {
+  flex: 0 0 min(34vw, 440px) !important;
+  align-self: center !important;
+  padding-left: 6vw !important;
+  padding-right: 2rem !important;
+  position: relative !important;
+  z-index: 10 !important;
+  background: linear-gradient(90deg, #070809 72%, rgba(7, 8, 9, 0.95) 86%, transparent 100%) !important;
+  pointer-events: auto !important;
+}
+
+.intro h2 {
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.05 !important;
+  color: #ffffff !important;
 }
 
 .track {
   display: flex !important;
   gap: 2.5rem !important;
-  padding: 0 6vw !important;
+  padding: 0 6vw 0 1rem !important;
   align-items: center !important;
   will-change: transform !important;
+  flex: 1 0 auto !important;
 }
 
 .card {
@@ -1357,6 +1366,14 @@ footer .big.in .mt-giant-card.is-white-card {
     display: block !important;
     overflow: visible !important;
     padding: 60px 0 !important;
+  }
+  .intro {
+    flex: none !important;
+    padding: 0 4% !important;
+    margin-bottom: 2rem !important;
+    background: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .track {
     flex-direction: column !important;
