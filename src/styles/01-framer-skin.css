@@ -555,18 +555,17 @@ details p {
   overflow: hidden;
 }
 
-/* Footer & Wordmark (NO SHADOWS) */
+/* Footer & Wordmark */
 footer .big {
-  opacity: 0;
-  transform: translateY(40%);
-  transition: transform 1.4s var(--ease), opacity 1.4s ease;
-  letter-spacing: -0.07em;
-  font-weight: 700;
-  color: var(--silver-dark);
+  opacity: 1;
+  transform: none;
+  font-family: 'Space Grotesk', 'Outfit', sans-serif;
+  font-weight: 800;
+  color: #8ac90d;
 }
 
 footer .big.in {
-  opacity: 0.14;
+  opacity: 1;
   transform: none;
 }
 

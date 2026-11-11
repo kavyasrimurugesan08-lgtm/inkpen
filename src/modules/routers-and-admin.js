@@ -39,6 +39,12 @@
       document.body.classList.remove('cr-on', 'dv-on', 'pg-about', 'pg-services', 'pg-projects');
       document.body.classList.add('cp-on');
       window.scrollTo({top: 0, behavior: 'smooth'});
+    } else if(hash === 'customers' || hash === 'testimonials'){
+      clearSubpages();
+      var custEl = document.getElementById('customers') || document.getElementById('testimonials');
+      if(custEl){
+        custEl.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
     } else if(PAGES[hash]){
       clearSubpages();
       document.body.classList.add(PAGES[hash]);
@@ -74,10 +80,15 @@
       e.stopImmediatePropagation();
       if(location.hash !== '#careers') location.hash = 'careers';
       else applyRoute();
-    } else if(target === 'contact-page'){
+    } else if(target === 'contact-page' || target === 'contact'){
       e.preventDefault();
       e.stopImmediatePropagation();
       if(location.hash !== '#contact-page') location.hash = 'contact-page';
+      else applyRoute();
+    } else if(target === 'customers' || target === 'testimonials'){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      if(location.hash !== '#customers') location.hash = 'customers';
       else applyRoute();
     } else if(PAGES[target]){
       e.preventDefault();
@@ -99,56 +110,103 @@
   window.addEventListener('popstate', applyRoute);
   applyRoute();
 
-  /* === Mobile Navbar Toggle === */
-  (function initMobileNav(){
+  /* === Interactive Animated Navigation Overlay Menu === */
+  (function initNavigationMenu(){
     var nav = document.querySelector('nav.glass');
     var bur = document.getElementById('bur');
     var links = document.getElementById('links');
-    if(!nav || !bur || !links) return;
+    var overlay = document.getElementById('navOverlay');
+    var closeBtn = document.getElementById('navOverlayClose');
+    if(!bur) return;
 
     var isOpen = false;
-    nav.classList.remove('hide', 'mnav-off', 'mnav-on', 'menu-open');
-    links.removeAttribute('hidden');
+    if(nav) nav.classList.remove('hide', 'mnav-off', 'mnav-on', 'menu-open');
+    if(links) links.removeAttribute('hidden');
 
-    function syncActiveLink(){
+    function syncActiveLinks(){
       var h = (location.hash || '#top').toLowerCase();
       if(h === '#' || h === '') h = '#top';
-      var items = links.querySelectorAll('a[href]');
-      for(var i = 0; i < items.length; i++){
-        var href = (items[i].getAttribute('href') || '').toLowerCase();
-        items[i].classList.toggle('active', href === h);
+      if(links){
+        var items = links.querySelectorAll('a[href]');
+        for(var i = 0; i < items.length; i++){
+          var href = (items[i].getAttribute('href') || '').toLowerCase();
+          items[i].classList.toggle('active', href === h);
+        }
+      }
+      if(overlay){
+        var oLinks = overlay.querySelectorAll('.nav-item-link, .overlay-sub-nav a');
+        for(var j = 0; j < oLinks.length; j++){
+          var oHref = (oLinks[j].getAttribute('href') || '').toLowerCase();
+          oLinks[j].classList.toggle('active', oHref === h);
+        }
       }
     }
 
     function setMenu(open){
       isOpen = !!open;
-      nav.classList.toggle('menu-open', isOpen);
-      links.classList.toggle('open', isOpen);
+      if(nav) nav.classList.toggle('menu-open', isOpen);
+      if(links) links.classList.toggle('open', isOpen);
       bur.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      if(isOpen) syncActiveLink();
+
+      if(overlay){
+        overlay.classList.toggle('open', isOpen);
+        overlay.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      }
+
+      // Prevent background scrolling while the menu is open
+      if(isOpen){
+        document.body.classList.add('nav-menu-open');
+        document.documentElement.classList.add('nav-menu-locked');
+        syncActiveLinks();
+      } else {
+        document.body.classList.remove('nav-menu-open');
+        document.documentElement.classList.remove('nav-menu-locked');
+      }
     }
 
     setMenu(false);
-    syncActiveLink();
+    syncActiveLinks();
 
+    // Toggle on burger click (desktop, tablet, and mobile)
     bur.addEventListener('click', function(e){
       e.preventDefault();
       e.stopPropagation();
       setMenu(!isOpen);
     });
 
+    // Close button inside overlay
+    if(closeBtn){
+      closeBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        setMenu(false);
+        bur.focus();
+      });
+    }
+
+    // Close when clicking overlay backdrop
+    if(overlay){
+      overlay.addEventListener('click', function(e){
+        if(e.target === overlay || (e.target.classList && e.target.classList.contains('nav-overlay-backdrop'))){
+          setMenu(false);
+        }
+      });
+    }
+
+    // Close menu automatically after selecting ANY navigation item
     window.addEventListener('click', function(e){
       var t = e.target;
       if(!t || !t.closest) return;
-      var link = t.closest('#links a, nav.glass .logo, nav.glass .navr a');
+      var link = t.closest('#navOverlay a[href], #links a, nav.glass .logo, nav.glass .navr a:not(#bur)');
       if(link){
         if(isOpen) setMenu(false);
-        syncActiveLink();
-      } else if(isOpen && !nav.contains(t)){
+        syncActiveLinks();
+      } else if(isOpen && overlay && !overlay.contains(t) && !bur.contains(t)){
         setMenu(false);
       }
     }, true);
 
+    // Close on Escape key
     window.addEventListener('keydown', function(e){
       if(isOpen && (e.key === 'Escape' || e.key === 'Esc')){
         setMenu(false);
@@ -158,7 +216,7 @@
 
     window.addEventListener('hashchange', function(){
       if(isOpen) setMenu(false);
-      syncActiveLink();
+      syncActiveLinks();
     });
   })();
 

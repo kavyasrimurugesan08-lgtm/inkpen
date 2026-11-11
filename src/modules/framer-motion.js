@@ -258,15 +258,22 @@ if(hero&&art2&&!RM){
 var art=$('.heroart');
 if(hero&&art&&fine&&!RM){
  if(!$('.lens',art)){
-  var ring=mk('div','lens','<span>X 0.00 · Y 0.00</span>');
+  var ring=mk('div','lens','<span>DATA LAYER • PULSE V3.14</span>');
   art.appendChild(ring);
-  hero.appendChild(mk('div','hint','Move the lens over the artwork'));
+  hero.appendChild(mk('div','hint','Move the lens over the artwork to inspect'));
   var tx=0,ty=0,cx=0,cy=0,hv=true,ro=ring.firstChild;
   hero.addEventListener('mousemove',function(e){
    var r=art.getBoundingClientRect();
    tx=e.clientX-r.left;ty=e.clientY-r.top;
    art.style.setProperty('--lo',1);
-   ro.textContent='X '+(tx/r.width).toFixed(2)+' · Y '+(ty/r.height).toFixed(2);
+   var relY=ty/r.height,relX=tx/r.width;
+   if(relY<0.35){
+    ro.textContent='DATA LAYER • TECH PULSE';
+   }else if(relX>0.55){
+    ro.textContent='TELEMETRY • 120K REQ/S ACTIVE';
+   }else{
+    ro.textContent='ACADEMY RADAR • 2,500+ COHORTS';
+   }
   });
   hero.addEventListener('mouseleave',function(){art.style.setProperty('--lo',0)});
   if(io){new IntersectionObserver(function(es){hv=es[0].isIntersecting}).observe(hero)}
@@ -433,17 +440,46 @@ if(clk){
 }
 var bigW=$('footer .big');
 if(bigW){
- $$('span',bigW).forEach(function(sp){
-  sp.addEventListener('pointerenter',function(){sp.classList.add('hot')});
-  sp.addEventListener('pointermove',function(){sp.classList.add('hot')});
-  sp.addEventListener('pointerleave',function(){sp.classList.remove('hot')});
+ var items = $$('.mt-giant-card', bigW);
+ if(!items.length) items = $$('span', bigW);
+ items.forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+   if(fine&&!RM){
+    var r = el.getBoundingClientRect();
+    var rx = ((e.clientY - r.top) / r.height - 0.5) * -18;
+    var ry = ((e.clientX - r.left) / r.width - 0.5) * 18;
+    el.style.transform = 'perspective(800px) rotateX(' + rx.toFixed(1) + 'deg) rotateY(' + ry.toFixed(1) + 'deg) scale(1.04)';
+   }
+   el.classList.add('hot');
+  });
+  el.addEventListener('mouseleave', function(){
+   if(fine&&!RM){
+    el.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+   }
+   el.classList.remove('hot');
+  });
+  el.addEventListener('click', function(){
+   if(!RM){
+    el.animate([
+     {transform: 'perspective(800px) rotateX(0deg)'},
+     {transform: 'perspective(800px) rotateX(180deg)'},
+     {transform: 'perspective(800px) rotateX(360deg)'}
+    ], {duration: 600, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)'});
+   }
+  });
  });
 }
 var big=$('footer .big');
 if(big&&'IntersectionObserver' in window){
  var bigIO=new IntersectionObserver(function(es){
-  es.forEach(function(e){e.target.classList.toggle('in',e.isIntersecting)});
- },{threshold:.35});
+  es.forEach(function(e){
+   if(e.isIntersecting){
+    e.target.classList.add('in');
+   } else {
+    e.target.classList.remove('in');
+   }
+  });
+ },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
  bigIO.observe(big);
 }else if(big){
  big.classList.add('in');
