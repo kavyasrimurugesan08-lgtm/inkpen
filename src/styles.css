@@ -3172,10 +3172,10 @@ footer .big.mt-giant-cards-container {
   transform-style: preserve-3d !important;
   user-select: none !important;
 
-  /* INITIAL STATE: All six letter cards are completely invisible */
-  opacity: 0 !important;
-  transform: translateY(60px) scale(0.85) !important;
-  pointer-events: none !important;
+  /* INITIAL STATE: cards invisible before reveal (NO !important so animation overrides cleanly) */
+  opacity: 0;
+  transform: translateY(60px) scale(0.85);
+  pointer-events: none;
 
   /* Dark glassmorphism card design */
   background: rgba(18, 22, 28, 0.85) !important;
@@ -3188,7 +3188,8 @@ footer .big.mt-giant-cards-container {
   will-change: transform, opacity, box-shadow, border-color !important;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.35s ease,
-              border-color 0.35s ease !important;
+              border-color 0.35s ease,
+              opacity 0.4s ease !important;
 }
 
 /* Split-Flap halves */
@@ -3207,7 +3208,8 @@ footer .big.mt-giant-cards-container {
   filter: brightness(1.05) !important;
 }
 
-.mt-giant-bottom {
+.mt-giant-bottom,
+.mt-giant-bot {
   align-items: flex-start !important;
   filter: brightness(0.95) !important;
 }
@@ -3243,7 +3245,8 @@ footer .big.mt-giant-cards-container {
   transform: translateY(50%) !important;
 }
 
-.mt-giant-bottom span {
+.mt-giant-bottom span,
+.mt-giant-bot span {
   transform: translateY(-50%) !important;
 }
 
@@ -3253,7 +3256,9 @@ footer .big.mt-giant-cards-container {
    ========================================================================== */
 footer .big.in .mt-giant-card {
   pointer-events: auto !important;
-  animation: cinematicLetterReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  animation: cinematicLetterReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both !important;
   animation-delay: calc(var(--i) * 300ms) !important;
 }
 

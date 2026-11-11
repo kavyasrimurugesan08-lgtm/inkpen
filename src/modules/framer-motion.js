@@ -472,18 +472,40 @@ if(bigW){
  });
 }
 var big=$('footer .big');
-if(big&&'IntersectionObserver' in window){
- var bigIO=new IntersectionObserver(function(es){
-  es.forEach(function(e){
-   if(e.isIntersecting){
-    e.target.classList.add('in');
-    bigIO.unobserve(e.target);
-   }
-  });
- },{threshold:0.12,rootMargin:'0px 0px -20px 0px'});
- bigIO.observe(big);
-}else if(big){
- big.classList.add('in');
+if(big){
+ var bigTriggered=false;
+ function triggerBigReveal(){
+  if(bigTriggered)return;
+  bigTriggered=true;
+  big.classList.add('in');
+  if(window.bigIO){
+   try{window.bigIO.disconnect();}catch(err){}
+  }
+  window.removeEventListener('scroll',checkBigScroll);
+ }
+ if('IntersectionObserver' in window){
+  var bigIO=new IntersectionObserver(function(es){
+   es.forEach(function(e){
+    if(e.isIntersecting||e.intersectionRatio>0){
+     triggerBigReveal();
+    }
+   });
+  },{threshold:[0,0.01,0.05],rootMargin:'120px 0px 80px 0px'});
+  bigIO.observe(big);
+  window.bigIO=bigIO;
+ }else{
+  triggerBigReveal();
+ }
+ function checkBigScroll(){
+  if(bigTriggered)return;
+  var rect=big.getBoundingClientRect();
+  if(rect.top<=(window.innerHeight||document.documentElement.clientHeight)+120){
+   triggerBigReveal();
+  }
+ }
+ window.addEventListener('scroll',checkBigScroll,{passive:true});
+ checkBigScroll();
+ setTimeout(checkBigScroll,600);
 }
 
 /* Parallax floating math & tech badges (from Pinterest Reference) */
