@@ -3978,7 +3978,7 @@ footer .mty-word {
   opacity: 0.95;
 }
 
-/* Individual Mechanical Split-Flap Tile (Exact match to reference dark slate cards) */
+/* Individual Mechanical Split-Flap Tile (Exact match to Metrio reference video in INKPEN Green) */
 .split-flap-tile,
 .mt-fl,
 .mt-giant-card {
@@ -3989,17 +3989,17 @@ footer .mty-word {
   width: clamp(42px, 14vw, 160px) !important;
   height: clamp(62px, 17vw, 195px) !important;
   border-radius: clamp(14px, 1.8vw, 20px) !important;
-  background: linear-gradient(180deg, #181d26 0%, #12151b 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #ffffff !important;
+  background: linear-gradient(180deg, #8BC926 0%, #7AB51D 50%, #68A014 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  color: #0B0F0C !important;
   transform-style: preserve-3d !important;
   perspective: 900px !important;
   user-select: none !important;
   overflow: hidden !important;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75),
-              0 20px 48px rgba(138, 201, 13, 0.32),
-              0 6px 18px rgba(138, 201, 13, 0.22),
-              0 2px 6px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6),
+              0 20px 48px rgba(138, 201, 13, 0.42),
+              0 6px 18px rgba(138, 201, 13, 0.28),
+              0 2px 6px rgba(0, 0, 0, 0.35) !important;
   transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 
   /* START STATE: all tiles hidden (opacity 0, rotated up on X axis) */
@@ -4011,11 +4011,23 @@ footer .mty-word {
   -webkit-backface-visibility: hidden !important;
 }
 
+/* Last tile: contrasting cream accent matching the Metrio video */
+.split-flap-tile:last-child,
+.mt-fl:last-child,
+.mt-giant-card:last-child {
+  background: linear-gradient(180deg, #F5F3EC 0%, #EDEBE4 50%, #DDD9CD 100%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #0B0F0C !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6),
+              0 18px 40px rgba(0, 0, 0, 0.3),
+              0 2px 6px rgba(0, 0, 0, 0.35) !important;
+}
+
 .split-flap-tile:hover,
 .mt-fl:hover,
 .mt-giant-card:hover {
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8), 0 0 28px rgba(138, 201, 13, 0.4) !important;
-  border-color: rgba(138, 201, 13, 0.4) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 35px rgba(138, 201, 13, 0.55) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
   transform: perspective(900px) translateY(-3px) scale(1.02) !important;
   cursor: pointer;
 }
@@ -4032,10 +4044,15 @@ footer .mty-word {
   top: 50% !important;
   height: 1px !important;
   margin-top: -0.5px !important;
-  background: rgba(0, 0, 0, 0.75) !important;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+  background: rgba(0, 0, 0, 0.22) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) !important;
   z-index: 10 !important;
   pointer-events: none !important;
+}
+
+.split-flap-tile:last-child::after {
+  background: rgba(0, 0, 0, 0.16) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) !important;
 }
 
 /* Top & Bottom Split Halves */
@@ -4059,7 +4076,7 @@ footer .mty-word {
   border-top-left-radius: inherit !important;
   border-top-right-radius: inherit !important;
   transform-origin: 50% 100% !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
 }
 
 /* Bottom half: center-hinge transform-origin at top of bottom half */
@@ -4068,10 +4085,10 @@ footer .mty-word {
   border-bottom-left-radius: inherit !important;
   border-bottom-right-radius: inherit !important;
   transform-origin: 50% 0% !important;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.18) !important;
 }
 
-/* Centered Typography: heavy bold geometric sans-serif, pure white on top, slight depth shading on bottom */
+/* Centered Typography: heavy bold geometric sans-serif matching Metrio reference */
 .flap-char,
 .mt-fl-i,
 .mt-fl span,
@@ -4084,23 +4101,24 @@ footer .mty-word {
   align-items: center !important;
   justify-content: center !important;
   font-family: 'Space Grotesk', 'Plus Jakarta Sans', -apple-system, sans-serif !important;
-  font-weight: 800 !important;
+  font-weight: 850 !important;
   font-size: clamp(3.2rem, 11.5vw, 9.8rem) !important;
   line-height: 1 !important;
   letter-spacing: -0.03em !important;
   text-transform: uppercase !important;
   user-select: none !important;
   pointer-events: none !important;
+  color: #0B0F0C !important;
 }
 
 .flap-top .flap-char {
   top: 0 !important;
-  color: #ffffff !important;
+  color: #0B0F0C !important;
 }
 
 .flap-bottom .flap-char {
   bottom: 0 !important;
-  color: #eceeef !important;
+  color: #0B0F0C !important;
 }
 
 /* Motion-blur streak trailing the flipping tile */

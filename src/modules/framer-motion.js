@@ -429,16 +429,30 @@ if(clk){
   }
 
   var timeouts = [];
+  var idleInterval = null;
   function clearTimeouts(){
     timeouts.forEach(function(t){ clearTimeout(t); });
     timeouts = [];
+    clearInterval(idleInterval);
+  }
+
+  function startIdleLoop(){
+    clearInterval(idleInterval);
+    idleInterval = setInterval(function(){
+      if(!wordmark.classList.contains('is-flipped')) return;
+      var idleTile = tiles[Math.floor(Math.random() * tiles.length)];
+      if(idleTile && !idleTile.classList.contains('flipping')){
+        idleTile.classList.add('idle-flip');
+        setTimeout(function(){ idleTile.classList.remove('idle-flip'); }, 520);
+      }
+    }, 6800);
   }
 
   function playAnimation(){
     clearTimeouts();
     wordmark.classList.remove('is-flipped');
     tiles.forEach(function(tile){
-      tile.classList.remove('flipping', 'flipped');
+      tile.classList.remove('flipping', 'flipped', 'idle-flip');
     });
 
     void wordmark.offsetWidth; // Force reflow
@@ -453,6 +467,9 @@ if(clk){
       var tEnd = setTimeout(function(){
         tile.classList.remove('flipping');
         tile.classList.add('flipped');
+        if(i === tiles.length - 1){
+          startIdleLoop();
+        }
       }, i * 120 + 520);
       timeouts.push(tEnd);
     });
@@ -462,9 +479,17 @@ if(clk){
     clearTimeouts();
     wordmark.classList.remove('is-flipped');
     tiles.forEach(function(tile){
-      tile.classList.remove('flipping', 'flipped');
+      tile.classList.remove('flipping', 'flipped', 'idle-flip');
     });
   }
+
+  // Hover to replay split-flap board
+  wordmark.addEventListener('mouseenter', function(){
+    var isFlipping = tiles.some(function(t){ return t.classList.contains('flipping'); });
+    if(!isFlipping){
+      playAnimation();
+    }
+  });
 
   // Trigger when ~30% visible; re-trigger each time it re-enters view
   if('IntersectionObserver' in window){
