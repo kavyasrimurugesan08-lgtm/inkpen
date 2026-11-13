@@ -55,37 +55,7 @@ if(hero&&!$('.hero-beam',hero)){
  hero.appendChild(mk('div','scue','<i></i>Scroll'));
 }
 
-/* hero: animated circuit traces & neural pulse nodes (from reference video 00:03-00:07) */
-var art2=$('.heroart');
-if(hero&&art2&&!RM){
- if(!$('#hero-circuit',art2)){
-  var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-  svg.id='hero-circuit';
-  svg.setAttribute('viewBox','0 0 1200 600');
-  svg.setAttribute('aria-hidden','true');
-  svg.innerHTML='<defs>' +
-   '<linearGradient id="circGrad" x1="0%" y1="0%" x2="100%" y2="100%">' +
-   '<stop offset="0%" stop-color="var(--g)" stop-opacity="0.75"/>' +
-   '<stop offset="100%" stop-color="var(--g2)" stop-opacity="0.12"/>' +
-   '</linearGradient>' +
-   '</defs>' +
-   '<g fill="none" stroke="url(#circGrad)" stroke-width="1.5" stroke-linecap="round">' +
-   '<path class="c-line l1" d="M 600 300 H 450 V 220 H 280 V 160 H 120"/>' +
-   '<path class="c-line l2" d="M 600 300 H 750 V 240 H 920 V 180 H 1080"/>' +
-   '<path class="c-line l3" d="M 600 300 V 420 H 420 V 480 H 220"/>' +
-   '<path class="c-line l4" d="M 600 300 V 400 H 780 V 470 H 980"/>' +
-   '<path class="c-line l5" d="M 450 220 V 120 H 350"/>' +
-   '<path class="c-line l6" d="M 750 240 V 140 H 850"/>' +
-   '</g>' +
-   '<g fill="var(--g)">' +
-   '<circle cx="600" cy="300" r="4.5" class="c-node"/>' +
-   '<circle cx="280" cy="160" r="3.2" class="c-node"/>' +
-   '<circle cx="920" cy="180" r="3.2" class="c-node"/>' +
-   '<circle cx="420" cy="480" r="3" class="c-node"/>' +
-   '<circle cx="780" cy="470" r="3" class="c-node"/>' +
-   '</g>';
-  art2.appendChild(svg);
- }
+/* hero: circuit traces removed */
  if(!$('.aur',art2))art2.appendChild(mk('div','aur',''));
  if(!$('.ffs',art2)){
   var ff=mk('div','ffs',''),N=innerWidth<820?14:32,h='';
@@ -254,40 +224,6 @@ if(hero&&art2&&!RM){
  })();
 }
 
-/* hero: lens that reveals the full-colour artwork under the cursor */
-var art=$('.heroart');
-if(hero&&art&&fine&&!RM){
- if(!$('.lens',art)){
-  var ring=mk('div','lens','<span>DATA LAYER • PULSE V3.14</span>');
-  art.appendChild(ring);
-  hero.appendChild(mk('div','hint','Move the lens over the artwork to inspect'));
-  var tx=0,ty=0,cx=0,cy=0,hv=true,ro=ring.firstChild;
-  hero.addEventListener('mousemove',function(e){
-   var r=art.getBoundingClientRect();
-   tx=e.clientX-r.left;ty=e.clientY-r.top;
-   art.style.setProperty('--lo',1);
-   var relY=ty/r.height,relX=tx/r.width;
-   if(relY<0.35){
-    ro.textContent='DATA LAYER • TECH PULSE';
-   }else if(relX>0.55){
-    ro.textContent='TELEMETRY • 120K REQ/S ACTIVE';
-   }else{
-    ro.textContent='ACADEMY RADAR • 2,500+ COHORTS';
-   }
-  });
-  hero.addEventListener('mouseleave',function(){art.style.setProperty('--lo',0)});
-  if(io){new IntersectionObserver(function(es){hv=es[0].isIntersecting}).observe(hero)}
-  (function f(){
-   if(hv){
-    cx+=(tx-cx)*.14;cy+=(ty-cy)*.14;
-    art.style.setProperty('--lx',cx.toFixed(1)+'px');
-    art.style.setProperty('--ly',cy.toFixed(1)+'px');
-   }
-   requestAnimationFrame(f);
-  })();
- }
-}
-
 /* marquee: add an outlined reverse row with edge gradient masks (from reference video 00:08, 00:23) */
 var mq=$('.mq');
 if(mq&&!$('.mq.r2')){
@@ -296,9 +232,16 @@ if(mq&&!$('.mq.r2')){
  mq.parentNode.insertBefore(c,mq.nextSibling);
 }
 
-/* nav stays absolute at top and never hides */
+/* nav stays pinned (fixed) and updates stuck state on scroll */
 var nav=$('nav.glass');
-if(nav){nav.classList.remove('hide')}
+if(nav){
+  nav.classList.remove('hide');
+  var onNavScroll = function(){
+    nav.classList.toggle('stuck', window.scrollY > 20);
+  };
+  window.addEventListener('scroll', onNavScroll, { passive: true });
+  onNavScroll();
+}
 
 /* dynamic bento spotlight border shader & 3D perspective tilt (from reference video 00:05, 00:13, 00:16, 00:32, 00:40) */
 if(fine&&!RM){
@@ -385,22 +328,10 @@ if(fine&&!RM){
 }
 
 /* divisions: horizontal progress line */
-var hs=$('#hs'),tr=$('#track'),intro=$('#hs .intro');
-if(hs&&tr){
- var hp=mk('div','hprog','<i></i>'),bar=hp.firstChild;
+var hs=$('#hs');
+if(hs && !$('#hs .hprog')){
+ var hp=mk('div','hprog','<i></i>');
  hs.appendChild(hp);
- (function f(){
-  if(innerWidth>820){
-   var m=getComputedStyle(tr).transform;
-   if(m&&m!=='none'){
-    var p=m.split(','),tx=+(m.indexOf('matrix3d')===0?p[12]:p[4]);
-    var introW = intro ? intro.offsetWidth : 0;
-    var max = Math.max(1, tr.scrollWidth - (innerWidth - introW) + 100);
-    bar.style.transform='scaleX('+Math.max(0,Math.min(1,max>0?-tx/max:0))+')';
-   }
-  }
-  requestAnimationFrame(f);
- })();
 }
 
 /* faq: smooth open and close height physics (from reference video 00:34-00:36) */
@@ -440,95 +371,118 @@ var clk=$('#clk');
 if(clk){
  clk.parentNode.insertBefore(mk('div','fstat','<i class="dot"></i>All systems operational'),clk.parentNode.firstChild.nextSibling);
 }
-var bigW=$('footer .big');
-if(bigW){
- var items = $$('.mt-giant-card', bigW);
- if(!items.length) items = $$('span', bigW);
- items.forEach(function(el){
-  el.addEventListener('mousemove', function(e){
-   if(fine&&!RM){
-    var r = el.getBoundingClientRect();
-    var rx = ((e.clientY - r.top) / r.height - 0.5) * -18;
-    var ry = ((e.clientX - r.left) / r.width - 0.5) * 18;
-    el.style.transform = 'perspective(800px) rotateX(' + rx.toFixed(1) + 'deg) rotateY(' + ry.toFixed(1) + 'deg) scale(1.04)';
-   }
-   el.classList.add('hot');
-  });
-  el.addEventListener('mouseleave', function(){
-   if(fine&&!RM){
-    el.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-   }
-   el.classList.remove('hot');
-  });
-  el.addEventListener('click', function(){
-   if(!RM){
-    el.animate([
-     {transform: 'perspective(800px) rotateX(0deg)'},
-     {transform: 'perspective(800px) rotateX(180deg)'},
-     {transform: 'perspective(800px) rotateX(360deg)'}
-    ], {duration: 600, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)'});
-   }
-  });
- });
-}
-var big=$('footer .big');
-if(big){
- var bigTriggered=false;
- function triggerBigReveal(){
-  if(bigTriggered)return;
-  bigTriggered=true;
-  big.classList.add('in');
-  if(window.bigIO){
-   try{window.bigIO.disconnect();}catch(err){}
-  }
-  window.removeEventListener('scroll',checkBigScroll);
- }
- if('IntersectionObserver' in window){
-  var bigIO=new IntersectionObserver(function(es){
-   es.forEach(function(e){
-    if(e.isIntersecting||e.intersectionRatio>0){
-     triggerBigReveal();
-    }
-   });
-  },{threshold:[0,0.01,0.05],rootMargin:'120px 0px 80px 0px'});
-  bigIO.observe(big);
-  window.bigIO=bigIO;
- }else{
-  triggerBigReveal();
- }
- function checkBigScroll(){
-  if(bigTriggered)return;
-  var rect=big.getBoundingClientRect();
-  if(rect.top<=(window.innerHeight||document.documentElement.clientHeight)+120){
-   triggerBigReveal();
-  }
- }
- window.addEventListener('scroll',checkBigScroll,{passive:true});
- checkBigScroll();
- setTimeout(checkBigScroll,600);
+/* footer: status pill + wordmark split-flap mechanical animation */
+var clk=$('#clk');
+if(clk){
+ clk.parentNode.insertBefore(mk('div','fstat','<i class="dot"></i>All systems operational'),clk.parentNode.firstChild.nextSibling);
 }
 
-/* Parallax floating math & tech badges (from Pinterest Reference) */
-var fBadges=$$('.hero-floating-badges .f-badge');
-if(hero&&fBadges.length&&fine&&!RM){
- hero.addEventListener('mousemove',function(e){
-  var r=hero.getBoundingClientRect();
-  var nx=(e.clientX-r.left)/r.width-0.5;
-  var ny=(e.clientY-r.top)/r.height-0.5;
-  fBadges.forEach(function(b,idx){
-   var speed=(idx%3+1)*15;
-   var inv=(idx%2===0?1:-1);
-   b.style.setProperty('--fx',(nx*speed*inv).toFixed(1)+'px');
-   b.style.setProperty('--fy',(ny*speed).toFixed(1)+'px');
+/* Split-Flap (Airport Departure Board) Scroll Animation for Footer Wordmark */
+(function initSplitFlapWordmark(){
+  var wordmark = $('footer .big');
+  if(!wordmark) return;
+
+  // Split existing wordmark text into spans via JS without retyping
+  var rawText = (wordmark.getAttribute('aria-label') || wordmark.dataset.word || wordmark.textContent || 'INKPEN').trim().replace(/\s+/g, '');
+  if(!rawText) rawText = 'INKPEN';
+
+  wordmark.classList.add('split-flap-board');
+  wordmark.innerHTML = '<div class="split-flap-row" role="presentation">' +
+    rawText.split('').map(function(char, idx) {
+      return (
+        '<div class="split-flap-tile" style="--tile-i:' + idx + '" data-char="' + char + '" aria-hidden="true">' +
+          '<div class="flap-half flap-top"><span class="flap-char">' + char + '</span></div>' +
+          '<div class="flap-half flap-bottom"><span class="flap-char">' + char + '</span></div>' +
+          '<div class="flap-seam" aria-hidden="true"></div>' +
+          '<div class="flap-streak" aria-hidden="true"></div>' +
+        '</div>'
+      );
+    }).join('') +
+  '</div>';
+
+  var tiles = $$('.split-flap-tile', wordmark);
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Interactive 3D micro-tilt on mouse hover
+  tiles.forEach(function(tile){
+    tile.addEventListener('mousemove', function(e){
+      if(fine && !RM){
+        var r = tile.getBoundingClientRect();
+        var rx = ((e.clientY - r.top) / r.height - 0.5) * -14;
+        var ry = ((e.clientX - r.left) / r.width - 0.5) * 14;
+        tile.style.transform = 'perspective(800px) rotateX(' + rx.toFixed(1) + 'deg) rotateY(' + ry.toFixed(1) + 'deg) scale(1.02)';
+      }
+    });
+    tile.addEventListener('mouseleave', function(){
+      if(fine && !RM){
+        tile.style.transform = '';
+      }
+    });
   });
- });
- hero.addEventListener('mouseleave',function(){
-  fBadges.forEach(function(b){
-   b.style.setProperty('--fx','0px');
-   b.style.setProperty('--fy','0px');
-  });
- });
-}
+
+  if(RM){
+    wordmark.classList.add('is-flipped');
+    tiles.forEach(function(tile){ tile.classList.add('flipped'); });
+    return;
+  }
+
+  var timeouts = [];
+  function clearTimeouts(){
+    timeouts.forEach(function(t){ clearTimeout(t); });
+    timeouts = [];
+  }
+
+  function playAnimation(){
+    clearTimeouts();
+    wordmark.classList.remove('is-flipped');
+    tiles.forEach(function(tile){
+      tile.classList.remove('flipping', 'flipped');
+    });
+
+    void wordmark.offsetWidth; // Force reflow
+    wordmark.classList.add('is-flipped');
+
+    tiles.forEach(function(tile, i){
+      var tStart = setTimeout(function(){
+        tile.classList.add('flipping');
+      }, i * 120);
+      timeouts.push(tStart);
+
+      var tEnd = setTimeout(function(){
+        tile.classList.remove('flipping');
+        tile.classList.add('flipped');
+      }, i * 120 + 520);
+      timeouts.push(tEnd);
+    });
+  }
+
+  function resetAnimation(){
+    clearTimeouts();
+    wordmark.classList.remove('is-flipped');
+    tiles.forEach(function(tile){
+      tile.classList.remove('flipping', 'flipped');
+    });
+  }
+
+  // Trigger when ~30% visible; re-trigger each time it re-enters view
+  if('IntersectionObserver' in window){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting && entry.intersectionRatio >= 0.3){
+          playAnimation();
+        } else if(!entry.isIntersecting || entry.intersectionRatio < 0.1){
+          resetAnimation();
+        }
+      });
+    }, {
+      threshold: [0, 0.1, 0.3, 0.5]
+    });
+    observer.observe(wordmark);
+  } else {
+    playAnimation();
+  }
+})();
+
 
 /* Process Step Switcher (from Pinterest Reference) */
 var procBtns=$$('.proc-step-btn');
@@ -559,14 +513,5 @@ if(procBtns.length&&procSteps.length){
  });
 }
 
-/* ORIGINAL ENTRANCE 100 COUNTER & LOGO (PRESERVED 100% UNTOUCHED): progress bar follows the counter */
-var cnt=$('#cnt');
-if(cnt){
- var lb=mk('div','lbar','<i></i>');
- cnt.parentNode.appendChild(lb);
- var fill=lb.firstChild;
- new MutationObserver(function(){
-  fill.style.width=(parseFloat(cnt.textContent)||0)+'%';
- }).observe(cnt,{childList:true,characterData:true,subtree:true});
-}
+
 })();

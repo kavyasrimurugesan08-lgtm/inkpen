@@ -45,31 +45,14 @@ body.cr-on #cpage {
   display: none !important;
 }
 
-/* Standalone View: About (#story and #team) */
-body.pg-about #main > *:not(#story):not(#team):not(:has(#story)):not(:has(#team)) {
-  display: none !important;
-}
-body.pg-about #story {
-  padding-top: 150px;
-}
-
-/* Standalone View: Services (#div) */
-body.pg-services #main > *:not(#div):not(:has(#div)) {
-  display: none !important;
-}
-body.pg-services #div {
-  padding-top: 150px;
-}
-
-/* Standalone View: Projects (#impact) */
-body.pg-projects #main > *:not(#impact):not(:has(#impact)) {
-  display: none !important;
-}
+/* Standalone View overrides removed: The main landing page is a continuous, seamless experience with no blank sections */
+body.pg-about #story,
+body.pg-services #div,
 body.pg-projects #impact {
-  padding-top: 150px;
+  padding-top: initial;
 }
 
-/* Breadcrumb / Return to Full Landing Pill on Subpages */
+/* Breadcrumb / Return to Full Landing Pill on Subpage Modals */
 .subpage-back-banner {
   display: none;
   width: min(1200px, 92%);
@@ -80,11 +63,9 @@ body.pg-projects #impact {
   border: 1px solid var(--line);
   box-shadow: none !important;
 }
-body.pg-about .subpage-back-banner,
-body.pg-services .subpage-back-banner,
-body.pg-projects .subpage-back-banner,
 body.cr-on .subpage-back-banner,
-body.cp-on .subpage-back-banner {
+body.cp-on .subpage-back-banner,
+body.dv-on .subpage-back-banner {
   display: flex !important;
   align-items: center;
   justify-content: space-between;

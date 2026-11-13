@@ -11,7 +11,7 @@
 
 /* ---------- Navbar Layout & Persistent Menu Button ---------- */
 body:not(.ad-on) nav.glass {
-  position: absolute !important;
+  position: fixed !important;
   display: flex !important;
   flex-wrap: nowrap;
   align-items: center;
@@ -34,24 +34,20 @@ nav.glass .navr {
   flex: 0 0 auto;
 }
 
-/* Burger / Menu Trigger Button (Desktop, Tablet & Mobile) */
+/* Burger / Menu Trigger Button (Icon Only - Clean Luxury Glass Circle) */
 .burger, #bur {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  min-height: 42px;
-  height: 42px;
-  padding: 0 1rem;
-  border-radius: 99px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  border-radius: 50%;
   border: 1px solid var(--line);
   background: var(--glass);
   color: var(--fg);
-  font-family: 'Outfit', 'Space Grotesk', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -74,22 +70,31 @@ nav.glass .navr {
   transform: scale(0.96);
 }
 
+.burger .bur-bars, .burger .bur-lines {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 4px !important;
+  width: 16px !important;
+  height: 14px !important;
+  flex: 0 0 auto !important;
+  pointer-events: none !important;
+}
+
 .burger .bar {
-  display: block;
-  width: 16px;
-  height: 2px;
-  border-radius: 2px;
-  background: currentColor;
-  pointer-events: none;
-  transform-origin: center;
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, background-color 0.28s ease;
+  display: block !important;
+  width: 16px !important;
+  height: 2px !important;
+  border-radius: 2px !important;
+  background: currentColor !important;
+  pointer-events: none !important;
+  transform-origin: center !important;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, background-color 0.28s ease !important;
 }
 
 .burger .bur-txt {
-  display: inline-block;
-  font-size: 0.88rem;
-  letter-spacing: 0.06em;
-  line-height: 1;
+  display: none !important;
 }
 
 /* Morphing burger bars when menu is open */
@@ -99,20 +104,23 @@ nav.glass.menu-open .burger, .burger[aria-expanded="true"] {
   color: #8ac90d;
 }
 
+nav.glass.menu-open .burger .bur-bars .bar:nth-child(1), .burger[aria-expanded="true"] .bur-bars .bar:nth-child(1),
 nav.glass.menu-open .burger .bar:nth-child(1), .burger[aria-expanded="true"] .bar:nth-child(1) {
-  transform: translateY(5px) rotate(45deg);
+  transform: translateY(6px) rotate(45deg) !important;
 }
 
+nav.glass.menu-open .burger .bur-bars .bar:nth-child(2), .burger[aria-expanded="true"] .bur-bars .bar:nth-child(2),
 nav.glass.menu-open .burger .bar:nth-child(2), .burger[aria-expanded="true"] .bar:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
+  opacity: 0 !important;
+  transform: scaleX(0) !important;
 }
 
+nav.glass.menu-open .burger .bur-bars .bar:nth-child(3), .burger[aria-expanded="true"] .bur-bars .bar:nth-child(3),
 nav.glass.menu-open .burger .bar:nth-child(3), .burger[aria-expanded="true"] .bar:nth-child(3) {
-  transform: translateY(-5px) rotate(-45deg);
+  transform: translateY(-6px) rotate(-45deg) !important;
 }
 
-/* Desktop Navbar Inline Links */
+/* Desktop Navbar Inline Links (Burger hidden on desktop) */
 @media (min-width: 960px) {
   body:not(.ad-on) nav.glass {
     display: grid !important;
@@ -152,23 +160,46 @@ nav.glass.menu-open .burger .bar:nth-child(3), .burger[aria-expanded="true"] .ba
     justify-self: end;
     margin-left: 0;
   }
+  /* Only show MENU button in mobile/tablet: hidden on desktop */
+  .burger, #bur {
+    display: none !important;
+  }
 }
 
-/* Tablet & Mobile: compact navbar */
+/* Tablet & Mobile: compact navbar with circular 3-bar hamburger icon */
 @media (max-width: 959px) {
   nav.glass .links {
     display: none !important;
   }
-  .burger .bur-txt {
-    display: none;
-  }
   .burger, #bur {
-    width: 42px;
-    height: 42px;
-    padding: 0;
-    border-radius: 50%;
-    flex-direction: column;
-    gap: 4px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    flex-direction: row !important;
+  }
+  .burger .bur-bars, .burger .bur-lines {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 3.5px !important;
+    width: 16px !important;
+    height: 14px !important;
+    flex: 0 0 auto !important;
+  }
+  .burger .bar {
+    display: block !important;
+    width: 16px !important;
+    height: 2px !important;
+  }
+  .burger .bur-txt {
+    display: none !important;
   }
 }
 
@@ -434,13 +465,7 @@ nav.glass.menu-open .burger .bar:nth-child(3), .burger[aria-expanded="true"] .ba
 }
 
 .item-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.88rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--silver-dark);
-  transition: color 0.3s ease, transform 0.3s ease;
-  min-width: 28px;
+  display: none !important;
 }
 
 .item-label {

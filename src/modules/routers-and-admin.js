@@ -10,22 +10,36 @@
 (function(){
   'use strict';
 
-  var PAGES = {
-    about: 'pg-about',
-    story: 'pg-about',
-    services: 'pg-services',
-    div: 'pg-services',
-    projects: 'pg-projects',
-    impact: 'pg-projects'
+  var ANCHOR_MAP = {
+    'services': 'div',
+    'div': 'div',
+    'about': 'story',
+    'story': 'story',
+    'projects': 'impact',
+    'impact': 'impact',
+    'footer': 'footer',
+    'console': 'telemetry',
+    'telemetry': 'telemetry',
+    'process': 'process',
+    'faq': 'faq',
+    'ask': 'ask',
+    'contact': 'contact'
   };
 
   var DVK = ['academy', 'tech', 'media'];
 
   function clearSubpages(){
-    document.body.classList.remove('cp-on', 'cr-on', 'dv-on');
-    Object.keys(PAGES).forEach(function(k){
-      document.body.classList.remove(PAGES[k]);
-    });
+    document.body.classList.remove('cp-on', 'cr-on', 'dv-on', 'pg-about', 'pg-services', 'pg-projects');
+  }
+
+  function scrollToSection(targetId){
+    var el = document.getElementById(targetId);
+    if(!el) return;
+    if(window.lenis && typeof window.lenis.scrollTo === 'function'){
+      window.lenis.scrollTo(el, { offset: -25, duration: 1.1 });
+    } else {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   function applyRoute(){
@@ -35,27 +49,25 @@
       document.body.classList.remove('cp-on', 'dv-on', 'pg-about', 'pg-services', 'pg-projects');
       document.body.classList.add('cr-on');
       window.scrollTo({top: 0, behavior: 'smooth'});
-    } else if(hash === 'contact-page' || hash === 'contact'){
+    } else if(hash === 'contact-page'){
       document.body.classList.remove('cr-on', 'dv-on', 'pg-about', 'pg-services', 'pg-projects');
       document.body.classList.add('cp-on');
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    } else if(hash === 'customers' || hash === 'testimonials'){
-      clearSubpages();
-      var custEl = document.getElementById('customers') || document.getElementById('testimonials');
-      if(custEl){
-        custEl.scrollIntoView({behavior: 'smooth', block: 'start'});
-      }
-    } else if(PAGES[hash]){
-      clearSubpages();
-      document.body.classList.add(PAGES[hash]);
       window.scrollTo({top: 0, behavior: 'smooth'});
     } else if(DVK.indexOf(hash) > -1){
       // Handled by division deep dive modal router
     } else {
-      // Home / Top: full landing page
+      // Full Landing Page Navigation
       clearSubpages();
-      if(hash === 'top' || hash === 'home' || hash === ''){
-        window.scrollTo({top: 0, behavior: 'smooth'});
+      var targetId = ANCHOR_MAP[hash] || hash;
+      var el = targetId ? document.getElementById(targetId) : null;
+      if(el){
+        scrollToSection(targetId);
+      } else if(hash === 'top' || hash === 'home' || hash === ''){
+        if(window.lenis && typeof window.lenis.scrollTo === 'function'){
+          window.lenis.scrollTo(0, { duration: 0.9 });
+        } else {
+          window.scrollTo({top: 0, behavior: 'smooth'});
+        }
       }
     }
 
@@ -80,21 +92,20 @@
       e.stopImmediatePropagation();
       if(location.hash !== '#careers') location.hash = 'careers';
       else applyRoute();
-    } else if(target === 'contact-page' || target === 'contact'){
+    } else if(target === 'contact-page'){
       e.preventDefault();
       e.stopImmediatePropagation();
       if(location.hash !== '#contact-page') location.hash = 'contact-page';
       else applyRoute();
-    } else if(target === 'customers' || target === 'testimonials'){
+    } else if(ANCHOR_MAP[target] || document.getElementById(target)){
       e.preventDefault();
       e.stopImmediatePropagation();
-      if(location.hash !== '#customers') location.hash = 'customers';
-      else applyRoute();
-    } else if(PAGES[target]){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      if(location.hash !== '#' + target) location.hash = target;
-      else applyRoute();
+      clearSubpages();
+      var sectionId = ANCHOR_MAP[target] || target;
+      scrollToSection(sectionId);
+      try {
+        history.replaceState(null, '', '#' + target);
+      } catch(err){}
     } else if(target === 'top' || target === 'home' || target === ''){
       e.preventDefault();
       e.stopImmediatePropagation();
@@ -102,7 +113,11 @@
         history.replaceState(null, '', location.pathname + location.search);
       } catch(err){}
       clearSubpages();
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      if(window.lenis && typeof window.lenis.scrollTo === 'function'){
+        window.lenis.scrollTo(0, { duration: 0.9 });
+      } else {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }
     }
   }, true);
 
