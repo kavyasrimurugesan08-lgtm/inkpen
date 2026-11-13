@@ -1188,6 +1188,7 @@ footer .big,
 footer .big.split-flap-board,
 footer .big.mt-giant-cards-container,
 footer .mty-word {
+  position: relative !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
@@ -1204,6 +1205,7 @@ footer .mty-word {
 .split-flap-row,
 .mt-flap,
 .mt-giant-cards-row {
+  position: relative !important;
   display: inline-flex !important;
   flex-direction: row !important;
   justify-content: center !important;
@@ -1216,11 +1218,26 @@ footer .mty-word {
   flex-wrap: nowrap !important;
 }
 
+/* Reference Video Ambient Green Floor Shadow / Glow */
+.split-flap-row::before,
+.mt-giant-cards-row::before {
+  content: "";
+  position: absolute;
+  inset: -10% -6% -32% -6%;
+  background: radial-gradient(ellipse 70% 50% at 50% 68%, rgba(138, 201, 13, 0.38) 0%, rgba(122, 181, 29, 0.18) 45%, rgba(138, 201, 13, 0.06) 65%, transparent 78%);
+  filter: blur(34px);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0.95;
+}
+
 /* Individual Mechanical Split-Flap Tile (Exact match to reference dark slate cards) */
 .split-flap-tile,
 .mt-fl,
 .mt-giant-card {
   position: relative !important;
+  z-index: 1 !important;
   display: block !important;
   min-width: clamp(42px, 14vw, 160px) !important;
   width: clamp(42px, 14vw, 160px) !important;
@@ -1233,7 +1250,10 @@ footer .mty-word {
   perspective: 900px !important;
   user-select: none !important;
   overflow: hidden !important;
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75),
+              0 20px 48px rgba(138, 201, 13, 0.32),
+              0 6px 18px rgba(138, 201, 13, 0.22),
+              0 2px 6px rgba(0, 0, 0, 0.4) !important;
   transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 
   /* START STATE: all tiles hidden (opacity 0, rotated up on X axis) */

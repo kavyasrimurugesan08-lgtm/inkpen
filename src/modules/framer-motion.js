@@ -56,6 +56,8 @@ if(hero&&!$('.hero-beam',hero)){
 }
 
 /* hero: circuit traces removed */
+var art2=hero?($('.heroart',hero)||$('.art',hero)):null;
+if(art2){
  if(!$('.aur',art2))art2.appendChild(mk('div','aur',''));
  if(!$('.ffs',art2)){
   var ff=mk('div','ffs',''),N=innerWidth<820?14:32,h='';
